@@ -1,0 +1,289 @@
+/* ======================= usermanagement.css ======================= */
+:root {
+  --bg: #f7fbf9;
+  --card-bg: #ffffff;
+  --muted: #7b8a86;
+  --accent: #1ba57a;
+  --accent-2: #000000;
+  --border: #e6e6e6;
+}
+
+/* Basic reset */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: var(--bg);
+  color: #223;
+}
+
+
+
+/* Header */
+.page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  color: #0f3b32;
+}
+
+.page-header .sub {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* Tabs */
+.tab-buttons {
+  margin-top: 20px;
+  display: flex;
+  gap: 10px;
+}
+
+.tab {
+  padding: 10px 18px;
+  border: 1px solid #d7e5df;
+  background: #fff;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+#tab-students:checked~.content .tab-buttons label[for="tab-students"],
+#tab-tutors:checked~.content .tab-buttons label[for="tab-tutors"] {
+  background: #e6f4ec;
+  color: var(--accent-2);
+  font-weight: 600;
+}
+
+/* Search */
+.search-box {
+  margin-top: 18px;
+  position: relative;
+  width: 320px;
+}
+
+.search-box input {
+  width: 100%;
+  padding: 10px 10px 10px 15px;
+  border: 1px solid #d7e5df;
+  border-radius: 8px;
+}
+
+.search-box i {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+}
+
+/* Sections */
+.section {
+  display: none;
+  margin-top: 24px;
+}
+
+#tab-students:checked~.content #students {
+  display: block;
+}
+
+#tab-tutors:checked~.content #tutors {
+  display: block;
+}
+
+/* Tables */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.data-table thead {
+  background: #f0f7f4;
+  color: var(--accent-2);
+}
+
+.data-table th,
+.data-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 14px;
+  margin-left: 12px;
+}
+
+.data-table tbody tr:hover {
+  background: #f9fdfa;
+}
+
+/* Status badges */
+.status {
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status.active {
+  background: #d8f3e1;
+  color: var(--accent-2);
+}
+
+.status.suspended {
+  margin-top: 1px;
+  background: #fff0d1;
+  color: #b88600;
+}
+
+.status.filled {
+  margin-top: 15px;
+  background: #ffffff;
+  color: #162e72;
+}
+
+.status.notfilled {
+  background: #ffffff;
+  color: #b65e00;
+}
+
+/* Action buttons */
+.action-btn,
+.actions button {
+  padding: 6px 10px;
+  font-size: 12px;
+  border: 1px solid #d6d6d6;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+  margin-right: 6px;
+  display: inline-block;
+}
+
+.action-btn:hover,
+.actions button:hover {
+  background: #f2f7f5;
+}
+
+.action-btn.warn {
+  border-color: #ffb0b0;
+  color: #b63b3b;
+}
+
+.action-btn.safe {
+  border-color: #a6dfb3;
+  color: #1b8d4f;
+}
+
+/* Hide radio inputs (tabs) */
+#tab-students,
+#tab-tutors {
+  display: none;
+}
+
+/* ======================= Status Toggle Rules ======================= */
+
+/* Hide rows by default */
+.row-active-aisyah,
+.row-suspended-aisyah,
+.row-active-abdullah,
+.row-suspended-abdullah {
+  display: none;
+}
+
+/* Aisyah */
+#toggle-aisyah-status:not(:checked)~.content .row-active-aisyah {
+  display: table-row;
+}
+
+#toggle-aisyah-status:checked~.content .row-suspended-aisyah {
+  display: table-row;
+}
+
+/* Abdullah */
+#toggle-abdullah-status:not(:checked)~.content .row-active-abdullah {
+  display: table-row;
+}
+
+#toggle-abdullah-status:checked~.content .row-suspended-abdullah {
+  display: table-row;
+}
+
+/* Hide native toggles */
+.status-toggle,
+.modal-toggle {
+  display: none;
+}
+
+/* ======================= Modal (cleaned & merged) ======================= */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.45);
+}
+
+.modal-toggle:checked+.modal {
+  display: flex;
+}
+
+.modal-box {
+  width: 380px;
+  background: #fff;
+  padding: 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+  position: relative;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  margin-top: 6px;
+}
+
+.close-btn {
+  margin-top: 16px;
+  display: inline-block;
+  background: var(--accent-2);
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* Responsive */
+@media (max-width:900px) {
+  .content {
+    margin-left: 0;
+    padding: 20px;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+}
+
+#sidebar-toggle:checked~.content {
+  margin-left: 60px;
+}
+
+/* Extra left padding for header when sidebar is closed */
+#sidebar-toggle:checked~.content .content-header {
+  padding-left: 20px;
+}

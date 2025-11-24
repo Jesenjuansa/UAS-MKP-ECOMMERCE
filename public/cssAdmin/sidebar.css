@@ -1,0 +1,133 @@
+/* ===== SIDEBAR.CSS (FINAL VERSION) ===== */
+
+/* Sidebar Wrapper */
+.sidebar {
+ width: 260px;
+ background: white;
+ height: 100vh;
+ border-right: 1px solid #e6e6e6;
+ padding: 20px;
+ display: flex;
+ flex-direction: column;
+ font-family: 'Inter', sans-serif;
+ position: fixed;
+ top: 0;
+ left: 0;
+ overflow: hidden;
+ transition: .3s;
+}
+
+/* Content offset */
+.content {
+ margin-left: 260px ;
+ padding: 28px 32px;
+ transition: .3s;
+ min-height: 100vh;
+}
+
+/* Sidebar collapsed */
+#sidebar-toggle:checked~.sidebar {
+ left: -360px;
+}
+
+#sidebar-toggle:checked~.content {
+ margin-left: 0;
+}
+
+/* Brand */
+.brand {
+ display: flex;
+ align-items: center;
+ gap: 20px;
+ font-size: 25px;
+ font-weight: bold;
+ margin-bottom: 30px;
+ margin-left: 55px !important;
+ margin-top: 4px;
+}
+
+/* MENU */
+.menu {
+ list-style: none;
+ padding: 0;
+}
+
+.menu li {
+ margin-left: -20px;
+ padding: 16px 18px;
+ border-radius: 8px;
+ display: flex;
+ align-items: center;
+ gap: 15px;
+ cursor: pointer;
+ color: #555;
+}
+
+.menu li a {
+ text-decoration: none;
+ color: inherit;
+ display: flex;
+ align-items: center;
+ gap: 14px;
+ width: 100%;
+}
+
+.menu li:hover,
+.menu .active {
+ background: #e6f4ec;
+ color: #2d8a5a;
+ font-weight: 600;
+}
+
+/* USER BOX */
+.sidebar-bottom {
+ margin-top: auto;
+ margin-bottom: 20px;
+}
+
+.user-box {
+ display: flex;
+ align-items: center;
+ gap: 10px;
+}
+
+.avatar {
+ background: #000;
+ color: white;
+ width: 40px;
+ height: 40px;
+ display: grid;
+ place-items: center;
+ border-radius: 50%;
+ font-weight: bold;
+}
+
+.username {
+ font-weight: 600;
+}
+
+.role {
+ font-size: 12px;
+ color: #777;
+ margin-top: -11px;
+}
+
+/* Toggle Button */
+.toggle-btn {
+ position: fixed;
+ top: 20px;
+ left: 20px;
+ color: #16723e;
+ padding: 10px 12px;
+ border-radius: 8px;
+ cursor: pointer;
+ z-index: 1100;
+ background: white;
+ border: 1px solid #d7d7d7;
+ box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Hide checkbox */
+#sidebar-toggle {
+ display: none;
+}

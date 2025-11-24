@@ -1,0 +1,261 @@
+/* ===== RESET ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #fff;
+  color: #333;
+}
+
+/* ===== PAGE TITLE ===== */
+.page-title {
+  text-align: center;
+  font-size: 2.3rem;
+  color: #162e72;
+  margin: 60px 0 40px;
+  font-weight: 500;
+}
+
+/* ===== GRID ===== */
+.lessons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 25px;
+  padding: 0 10% 100px;
+}
+
+/* ===== CARD ===== */
+.lesson-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+  padding: 25px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lesson-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+}
+
+.lesson-info h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #162e72;
+}
+
+.lesson-info p {
+  font-size: 0.95rem;
+  margin-bottom: 6px;
+}
+
+/* ===== BADGES ===== */
+.badge {
+  padding: 3px 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.discuss-badge {
+  background-color: #d9d9d9;
+}
+
+.deal-badge {
+  background-color: #a2e1a2;
+}
+
+.waiting-badge {
+  background-color: #ffe0b3;
+}
+
+.paid-badge {
+  background-color: #eacdff;
+}
+
+.ongoing-badge {
+  background-color: #c7ddf7;
+}
+
+.done-badge {
+  background-color: #ffeab2;
+}
+
+/* ===== BUTTONS ===== */
+.lesson-action {
+  margin-top: 20px;
+}
+
+button,
+.pay-btn,
+.review-btn {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  width: 100%;
+  text-align: center;
+}
+
+.disabled-btn {
+  background-color: #f0f0f0;
+  color: #666;
+  cursor: not-allowed;
+}
+
+.pay-btn {
+  background-color: #000;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+
+.pay-btn:hover {
+  background-color: #000000;
+}
+
+.review-btn {
+  background-color: #f0f0f0;
+  color: #666;
+  display: block;
+  transition: 0.3s;
+  text-decoration: none;
+}
+
+.review-btn:hover {
+  background-color: #000000;
+  color: #fff;
+}
+
+
+/* ===== CHAT BADGE & STATUS ===== */
+.chat-link {
+  background-color: #162e72;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  margin-left: 10px;
+  text-decoration: none;
+}
+
+.chat-link:hover {
+  background-color: #0d1d49;
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ============================
+   MODAL SYSTEM (NO JS) USING :target
+   ============================ */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 2000;
+}
+
+.modal-content {
+  background: #fff;
+  padding: 25px;
+  width: 350px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  animation: fadeIn 0.25s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== STAR RATING ===== */
+.stars {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  font-size: 26px;
+  cursor: pointer;
+  margin: 10px 0;
+}
+
+.stars input {
+  display: none;
+}
+
+.stars label {
+  color: gray;
+}
+
+.stars input:checked~label {
+  color: gold;
+}
+
+.stars label:hover,
+.stars label:hover~label {
+  color: gold;
+}
+
+/* ===== TEXTAREA INSIDE MODAL ===== */
+.modal-content textarea {
+  width: 100%;
+  margin-top: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .page-title {
+    font-size: 1.8rem;
+  }
+
+  .lesson-card {
+    padding: 20px;
+  }
+
+  .lessons-grid {
+    padding: 0 5% 80px;
+  }
+}
+
+/* FIX PROFILE ICON — FORCE SIZE */
+.profile-icon {
+  width: 36px !important;
+  height: 36px !important;
+  padding: 0 !important;
+}
+
+.profile-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: 50% !important;
+}

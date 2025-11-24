@@ -1,0 +1,128 @@
+/* ===== RESET ===== */
+* {
+ margin: 0;
+ padding: 0;
+ box-sizing: border-box;
+ font-family: 'Poppins', sans-serif;
+}
+
+body {
+ background-color: #f9f9f9;
+}
+
+/* ===== TITLE SECTION ===== */
+.title-section {
+ text-align: center;
+ padding: 0px 20px 30px;
+}
+
+.title-section h1 {
+ text-align: center;
+ font-size: 2.3rem;
+ color: #162e72;
+ margin: 60px 0 0px;
+ font-weight: 500;
+}
+
+.title-section p {
+ color: #555;
+ margin-top: 10px;
+ font-size: 1rem;
+}
+
+/* ===== SCHEDULE LIST ===== */
+.schedule-list {
+ display: grid;
+ grid-template-columns: repeat(3, 1fr);
+ gap: 25px;
+ padding: 20px 80px 100px;
+}
+
+/* ===== CARD ===== */
+.schedule-card {
+ background: #fff;
+ border-radius: 18px;
+ box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+ padding: 20px;
+ transition: 0.3s;
+ min-height: 220px;
+}
+
+.schedule-card:hover {
+ transform: translateY(-5px);
+}
+
+/* ===== STATUS BADGES ===== */
+.status-badge {
+ font-size: 0.85rem;
+ padding: 5px 10px;
+ border-radius: 12px;
+ font-weight: 500;
+}
+
+.upcoming {
+ background-color: #cfe9fc;
+}
+
+.ongoing {
+ background-color: #cfe9fc;
+}
+
+/* ===== CARD BODY ===== */
+.card-body {
+ margin-top: 10px;
+ color: #333;
+ font-size: 0.95rem;
+ line-height: 1.6;
+}
+
+.card-body i {
+ color: #162e72;
+ margin-right: 6px;
+}
+
+/* ===== CARD ACTIONS ===== */
+.card-actions {
+ margin-top: 15px;
+ text-align: right;
+}
+
+.start-btn,
+.done-btn {
+ background-color: #000000;
+ color: #fff;
+ border: none;
+ padding: 8px 16px;
+ border-radius: 18px;
+ cursor: pointer;
+ font-size: 0.9rem;
+}
+
+.start-btn:hover,
+.done-btn:hover {
+ background-color: #162e72;
+}
+
+.finished-text {
+ color: #333;
+ font-style: italic;
+ font-weight: 500;
+}
+
+.hidden {
+ display: none !important;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+ .schedule-list {
+  grid-template-columns: repeat(2, 1fr);
+ }
+}
+
+@media (max-width: 768px) {
+ .schedule-list {
+  grid-template-columns: 1fr;
+  padding: 20px 25px 80px;
+ }
+}

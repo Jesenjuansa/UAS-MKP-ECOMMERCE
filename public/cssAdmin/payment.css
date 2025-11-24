@@ -1,0 +1,154 @@
+    /* ============ RESET GLOBAL ============ */
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7fbf9;
+      margin-top: -20px;
+      margin-left: 10px;
+    }
+
+    /* ============ PAGE CONTENT ============ */
+
+    * {
+      box-sizing: border-box
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: #0f3b32;
+    }
+
+    h2 {
+      font-size: 20px;
+      margin: 20px 0 10px;
+    }
+
+    .card {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+      margin-bottom: 30px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    .table th,
+    .table td {
+      padding: 14px 12px;
+      text-align: left;
+      border-bottom: 1px solid #eee;
+      font-size: 14px;
+    }
+
+    .table th {
+      font-weight: 600;
+      background: #e6f4ec;
+    }
+
+    .badge {
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+
+    .badge.pending {
+      background: #ffe8a3;
+      color: #8a6d00;
+    }
+
+    .badge.approved {
+      background: #c9f7c5;
+      color: #1a7f1a;
+    }
+
+    .badge.rejected {
+      background: #ffb8b8;
+      color: #7f1a1a;
+    }
+
+    .badge.paid {
+      background: #c9f7c5;
+      color: #116611;
+    }
+
+    .btn {
+      padding: 6px 12px;
+      font-size: 13px;
+      border-radius: 6px;
+      text-decoration: none;
+      display: inline-block;
+      margin-right: 4px;
+    }
+
+    .btn-view {
+      background: #dfe7ff;
+    }
+
+    .btn-approve {
+      background: #b9f5c2;
+    }
+
+    .btn-reject {
+      background: #ffb8b8;
+    }
+
+    .btn-upload {
+      background: #e6e6e6;
+    }
+
+    /* ============ MODAL ============ */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal:target {
+      display: flex;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 500px;
+      width: 100%;
+    }
+
+    .modal img {
+      width: 80%;
+      border-radius: 8px;
+    }
+
+    .close-modal {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 6px 12px;
+      background: #ddd;
+      border-radius: 6px;
+      text-decoration: none;
+    }
+
+    #sidebar-toggle:checked~.content {
+      margin-left: 60px;
+    }
+
+    /* Extra left padding for header when sidebar is closed */
+    #sidebar-toggle:checked~.content .content-header {
+      padding-left: 20px;
+    }
