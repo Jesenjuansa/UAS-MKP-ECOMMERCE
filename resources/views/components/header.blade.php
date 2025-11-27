@@ -1,5 +1,5 @@
  <!-- ===== HEADER (TUTOR) ===== -->
- 
+
  <header>
      <nav class="navbar">
          <div class="brand">PrivEdu</div>
@@ -11,7 +11,7 @@
                  </button>
 
                  <div class="dropdown" role="menu" aria-hidden="true">
-                     <a href="tutor-profile.html">My Profile</a>
+                     <a href="{{ route('users.profile') }}">My Profile</a>
 
                      <form action="/logout" method="POST">
                          <button type="submit" class="logout-btn">Logout</button>
@@ -23,10 +23,10 @@
 
      <nav class="sub-navbar">
          <ul>
-             <li class="{{ request()->routeIs('home') ? 'active' : '' }}"><a href="{{ route('tutor.home') }}">Home</a></li>
-             <li class="{{ request()->routeIs('about') ? 'active' : '' }}"><a href="{{ route('tutor.about') }}">About</a></li>
-             <li class="{{ request()->routeIs('request') ? 'active' : '' }}"> <a href="{{ route('tutor.request') }}">Request</a></li>
-             <li class="{{ request()->routeIs('schedule') ? 'active' : '' }}"><a href="{{ route('tutor.schedule') }}">Schedule</a></li>
+             <li class="{{ request()->routeIs('home') ? 'active' : '' }}"><a href="{{ route('users.home') }}">Home</a></li>
+             <li class="{{ request()->routeIs('about') ? 'active' : '' }}"><a href="{{ route('users.about') }}">About</a></li>
+             <li class="{{ request()->routeIs('request') ? 'active' : '' }}"> <a href="{{ route('users.request') }}">Request</a></li>
+             <li class="{{ request()->routeIs('schedule') ? 'active' : '' }}"><a href="{{ route('users.schedule') }}">Schedule</a></li>
          </ul>
      </nav>
  </header>
