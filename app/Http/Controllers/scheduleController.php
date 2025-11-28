@@ -8,6 +8,6 @@ class scheduleController extends Controller
 {
     public function index()
     {
-        return view('users.schedule'); // tutor-schedule.blade.php
+        return view('tutors.schedule'); // tutor-schedule.blade.php
     }
 }

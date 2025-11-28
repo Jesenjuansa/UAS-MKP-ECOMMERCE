@@ -8,6 +8,6 @@ class requestTutorsController extends Controller
 {
     public function index()
     {
-        return view('users.request'); // tutor-requests.blade.php
+        return view('tutors.request'); // tutor-requests.blade.php
     }
 }
