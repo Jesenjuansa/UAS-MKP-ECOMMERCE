@@ -13,10 +13,23 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+
+            // FIELD WAJIB UNTUK SEMUA
+            $table->string('full_name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+
+            // ROLE
+            $table->enum('role', ['student', 'tutor'])->default('student');
+
+            // FIELD KHUSUS TUTOR (nullable)
+            $table->string('phone_number')->nullable();
+            $table->string('pas_foto')->nullable();
+            $table->string('teaching_subject')->nullable();
+            $table->string('class_type')->nullable();
+            $table->integer('rate_per_session')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });

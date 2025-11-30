@@ -1,7 +1,6 @@
 @php
-    // ==== SET ROLE SEMENTARA ====
-    // Pilihan: tutor | student | guest
-    $role = 'student';
+    // Dapatkan role dari database jika user login
+    $role = Auth::check() ? Auth::user()->role : 'guest';
 @endphp
 
 <header>
@@ -19,17 +18,27 @@
                     </button>
 
                     <div class="dropdown">
-                        <a href="{{ route('tutors.profile') }}">My Profile</a>
-                        <a href="{{ route('login') }}">
-                        <button class="logout-btn">Logout</button>
-                        </a>
+                        {{-- Profile sesuai role --}}
+                        @if($role == 'tutor')
+                            <a href="{{-- {{ route('tutors.profile') }} --}}">My Profile</a>
+                        @else
+                            <a href="{{-- {{ route('students.profile') }} --}}">My Profile</a>
+                        @endif
+
+                        {{-- Logout --}}
+                        <form method="POST" action="{{ route('auth.logout') }}">
+                            @csrf
+                            <button type="submit" class="logout-btn">Logout</button>
+                        </form>
                     </div>
                 </div>
 
             {{-- Jika guest --}}
             @else
-                <a href="{{ route('login') }}" id="loginBtn">Login</a>
-                <a href="{{ route('register') }}" id="registerBtn">Register</a>
+                <div class="nav-links" id="navLinks">
+                    <a href="{{ route('auth.login') }}" id="loginBtn">Login</a>
+                    <a href="{{ route('auth.register') }}" id="registerBtn" class="register">Register</a>
+                </div>
             @endif
 
         </div>
@@ -48,7 +57,7 @@
             {{-- NAV STUDENT --}}
             @elseif($role == 'student')
                 <li><a href="{{ route('student.home') }}">Home</a></li>
-                <li><a href="{{ route('student.mylesson') }}">Mylesson </a></li>
+                <li><a href="{{ route('student.mylesson') }}">My Lesson</a></li>
                 <li><a href="{{ route('student.schedule') }}">Schedule</a></li>
 
             {{-- NAV GUEST --}}

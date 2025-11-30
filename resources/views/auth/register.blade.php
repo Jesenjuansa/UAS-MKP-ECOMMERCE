@@ -16,45 +16,51 @@
 
     <!-- ROLE SWITCH (TANPA JS) -->
     <div class="role-switch">
-      <a href="{{ route('register') }}" class="role-btn active">
+      <a href="{{ route('auth.register') }}" class="role-btn active">
         <i class="bi bi-person-lines-fill"></i> STUDENT
       </a>
-      <a href="{{ route('tutorRegister') }}" class="role-btn">
+      <a href="{{ route('auth.register.tutor') }}" class="role-btn">
         <i class="bi bi-mortarboard-fill"></i> TUTOR
       </a>
     </div>
 
-    <form method="POST" action="/register-student">
-      <div class="scroll-area">
+   <form method="POST" action="{{ route('auth.register.process') }}">
+    @csrf
+
+    <div class="scroll-area">
 
         <div class="form-group">
-          <label>Full Name</label>
-          <input name="name" required>
+            <label>Full Name</label>
+            <input name="full_name" required>
         </div>
 
         <div class="form-group">
-          <label>Email</label>
-          <input type="email" name="email" required>
+            <label>Email</label>
+            <input type="email" name="email" required>
         </div>
 
         <div class="form-group">
-          <label>Password</label>
-          <input type="password" name="password" required>
+            <label>Password</label>
+            <input type="password" name="password" required>
         </div>
 
         <div class="form-group">
-          <label>Confirm Password</label>
-          <input type="password" name="password_confirmation" required>
+            <label>Confirm Password</label>
+            <input type="password" name="password_confirmation" required>
         </div>
 
-      </div>
+        <!-- penting: role student -->
+        <input type="hidden" name="role" value="student">
 
-      <button class="btn" type="submit">Register as Student</button>
+    </div>
 
-      <div class="link">
-        Already have an account? <a href="{{ route('login') }}">Login here</a>
-      </div>
-    </form>
+    <button class="btn" type="submit">Register as Student</button>
+
+    <div class="link">
+        Already have an account? <a href="{{ route('auth.login') }}">Login here</a>
+    </div>
+</form>
+
   </div>
 </body>
 

@@ -4,8 +4,76 @@
 @section('content')
 <link rel="stylesheet" href="{{ asset('cssUser/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('cssUser/dashboard.css') }}">
+<style>
+    .product-section {
+    text-align: center;
+    padding: 80px 0;
+    background: #f9f9f9;
+}
 
+.product-title {
+    font-size: 32px;
+    font-weight: 600;
+    margin-bottom: 40px;
+    color: #333;
+    font-family: "Playfair Display", serif;
+}
 
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 30px;
+    width: 80%;
+    margin: auto;
+}
+
+.product-card {
+    background: white;
+    border-radius: 12px;
+    padding: 18px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: 0.3s;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.product-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.product-card h3 {
+    margin: 15px 0 10px;
+    font-size: 20px;
+    font-family: "Playfair Display", serif;
+}
+
+.product-card p {
+    font-size: 15px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.product-btn {
+    background: #000;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.product-btn:hover {
+    background: #444;
+}
+
+</style>
   <!-- ===== HERO SECTION ===== -->
   <section class="hero">
     <img src="{{ asset('images/cr.jpg') }}" alt="Hero Background" class="hero-bg" />
@@ -36,80 +104,28 @@
     </div>
   </section>
 
-  <!-- ===== MENU CONTAINER SECTION ===== -->
-  <section class="menu-section">
-    <div class="menu-container">
+<section class="product-section">
+    <h2 class="product-title">Our Quran Learning Programs</h2>
 
-      <!-- LEFT COLUMN -->
-      <div class="menu-column">
+    <div class="product-grid">
+        <!-- Product 3 -->
+        <div class="product-card">
+            <img src="../images/teach.jpg" alt="Memorization Program" />
+            <h3>Memorization Program</h3>
+            <p>Structured hifz guidance with certified tutors.</p>
+             <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
+        </div>
 
-        <h2>Our Learning Programs</h2>
-
-        <div class="menu-item"> Iqra & Basic Qur’an Reading </div>
-        <div class="menu-item"> Tajweed & Tilawah </div>
-        <div class="menu-item"> Tahfidz / Qur’an Memorization </div>
-        <div class="menu-item"> Tahsin Qur’an Recitation </div>
-        <div class="menu-item"> Daily Du’a & Worship </div>
-      </div>
-
-      <!-- RIGHT COLUMN -->
-      <div class="menu-column">
-        <h2>Why Choose Us</h2>
-        <div class="menu-item"><span class="icon">✓</span> Learning made enjoyable and interactive</div>
-        <div class="menu-item"><span class="icon">✓</span> Study anytime, anywhere</div>
-        <div class="menu-item"><span class="icon">✓</span> Experienced and certified educators</div>
-        <div class="menu-item"><span class="icon">✓</span> Personalized Learning Plans</div>
-        <div class="menu-item"><span class="icon">✓</span> Safe & Comfortable Environment</div>
-      </div>
-
+        <!-- Product 4 -->
+        <div class="product-card">
+            <img src="../images/teach.jpg" alt="Arabic Basics" />
+            <h3>Arabic Basics</h3>
+            <p>Learn basic Arabic to understand Qur’anic vocabulary.</p>
+            <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
+        </div>
     </div>
-  </section>
+</section>
 
-
-  <!-- ===== 4 EASY STEPS SECTION ===== -->
-  <section class="steps">
-    <div class="h2">
-      HOW IT WORKS
-    </div>
-
-    <div class="catalog-container">
-      <!-- Card 1 -->
-      <div class="card">
-        <div class="img-circle">1</div>
-        <h3>Create an Account</h3>
-        <p>Sign up to book your chosen tutor and start your learning journey.</p>
-        <p class="btn-detail"></p>
-        <div class="underline"></div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="card">
-        <div class="img-circle">2</div>
-        <h3>Choose a Tutor</h3>
-        <p>Browse through profiles and select the one that fits your goals.</p>
-        <p class="btn-detail"></p>
-        <div class="underline"></div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="card">
-        <div class="img-circle">3</div>
-        <h3>Consult & Schedule</h3>
-        <p>Chat with your tutor to discuss fees and set a suitable schedule.</p>
-        <p class="btn-detail"></p>
-        <div class="underline"></div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="card">
-        <div class="img-circle">4</div>
-        <h3>Start Learning</h3>
-        <p>Begin your personalized Qur’an learning experience anytime, anywhere.</p>
-        <p class="btn-detail"></p>
-        <div class="underline"></div>
-      </div>
-    </div>
-  </section>
 
   <!-- ===== TEACHER ===== -->
   <section class="tutor">
@@ -123,7 +139,7 @@
             Let’s create something powerful together. Join our mission to spread the beauty of Qur’an learning. As a
             PrivEdu tutor, you’ll inspire students, share your passion, and make a meaningful impact.
           </p>
-          <a href="tutor-register.html" class="btn">Join as a Tutor</a>
+          <a href="{{ route('auth.register.tutor') }}" class="btn">Join as a Tutor</a>
         </div>
       </div>
     </div>

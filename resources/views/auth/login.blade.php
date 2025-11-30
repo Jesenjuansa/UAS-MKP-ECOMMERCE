@@ -2,40 +2,54 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login - PrivEdu</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - PrivEdu</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="{{ asset('cssUser/auth.css') }}" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ asset('cssUser/auth.css') }}" />
 </head>
 
 <body>
 
-  <div class="container">
+    <div class="container">
 
-    <form action="#" method="POST">
+      <form action="{{ route('auth.login.process') }}" method="POST">
+    @csrf
 
-      <div class="form-group">
-        <label>Email / Username</label>
-        <input type="text" name="login" required>
-      </div>
+    @if ($errors->any())
+        <div>
+            <strong style="color:red;">{{ $errors->first() }}</strong>
+        </div>
+        <br>
+    @endif
 
-      <div class="form-group">
-        <label>Password</label>
+    <div>
+        <label>Email / Username</label><br>
+        <input type="text" name="login" value="{{ old('login') }}" required>
+    </div>
+
+    <br>
+
+    <div>
+        <label>Password</label><br>
         <input type="password" name="password" required>
-      </div>
+    </div>
 
-      <button class="btn" type="submit">Login</button>
+    <br>
 
-      <div class="divider">or</div>
+    <button class="btn" type="submit">Login</button>
 
-      <div class="link">
-        Don’t have an account? <a href="{{ route('register') }}">Register now</a>
-      </div>
-    </form>
+    <div class="divider">or</div>
 
-  </div>
+    <div style="text-align:center;">
+        Don’t have an account?<a href="{{ route('auth.register') }}">Register now</a>
+    </div>
+</form>
+
+
+
+    </div>
 
 </body>
 
