@@ -1,131 +1,112 @@
 @extends('components.layoutAdmin')
 
-
 @section('content')
 <link rel="stylesheet" href="{{ asset('cssAdmin/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('cssAdmin/lessonrequest.css') }}">
-        
-        <main class="lr-container">
 
-   <h1>Lesson Request Management</h1>
-   <p class="sub">Menampilkan seluruh permintaan les mengaji dari siswa.</p>
+<main class="lr-container">
 
-   <div class="card-table">
-    <table class="lr-table">
-     <thead>
-      <tr>
-       <th>Student</th>
-       <th>Tutor</th>
-       <th>Subject</th>
-       <th>Schedule</th>
-       <th>Status</th>
-       <th>Actions</th>
-      </tr>
-     </thead>
+    <h1>Lesson Request Management</h1>
+    <p class="sub">Menampilkan seluruh permintaan les mengaji dari siswa.</p>
 
-     <tbody>
-      <!-- SAMPLE ROW -->
-      <tr>
-       <td>Aisha Amira</td>
-       <td>Ahmad Rahman</td>
-       <td>Qur'an Recitation</td>
-       <td>6/11/2025 — 07:57</td>
+    <div class="card-table">
+        <table class="lr-table">
+            <thead>
+                <tr>
+                    <th>Student</th>
+                    <th>Tutor</th>
+                    <th>Subject</th>
+                    <th>Schedule</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
 
-       <td>
-        <span class="status discuss">DISCUSS</span>
-       </td>
+            <tbody>
+                @foreach ($requests as $req)
+                <tr>
+                    <td>{{ $req->student->full_name }}</td>
+                    <td>{{ $req->tutor->full_name }}</td>
+                    <td>{{ $req->subject }}</td>
+                    <td>{{ $req->schedule->format('m/d/Y — H:i') }}</td>
 
-       <td class="actions">
-        <label for="view-1" class="btn-view">View</label>
-        <label for="delete-1" class="btn-delete">
-         <i class="fa-solid fa-trash"></i>
-        </label>
-       </td>
-      </tr>
-     </tbody>
-    </table>
-   </div>
-  </main>
+                    <td>
+                        <span class="status {{ $req->status }}">
+                            {{ strtoupper($req->status) }}
+                        </span>
+                    </td>
 
-   <!-- =========================================
-     VIEW DETAILS MODAL (Checkbox System)
-     ========================================= -->
- <input type="checkbox" id="view-1" class="modal-toggle">
- <div class="modal">
-  <label for="view-1" class="modal-overlay"></label>
-  <div class="modal-box request-modal">
+                    <td class="actions">
+                        <!-- View -->
+                        <label for="view-{{ $req->id }}" class="btn-view">View</label>
 
-   <h2 class="modal-title">Aisha Amira</h2>
+                        <!-- Delete -->
+                        <label for="delete-{{ $req->id }}" class="btn-delete">
+                            <i class="fa-solid fa-trash"></i>
+                        </label>
+                    </td>
+                </tr>
 
-   <p><b>Student:</b> Ahmad Rahman</p>
-   <p><b>Age:</b> 15</p>
-   <p><b>Subject:</b> Qur’an Recitation</p>
-   <p><b>Learning Mode:</b> Online</p>
-   <p><b>Notes:</b> I want to improve my pronunciation.</p>
+                <!-- ================================
+                    VIEW DETAILS MODAL
+                    ================================ -->
+                <input type="checkbox" id="view-{{ $req->id }}" class="modal-toggle">
+                <div class="modal">
+                    <label for="view-{{ $req->id }}" class="modal-overlay"></label>
 
-   <label>Schedule:</label>
-   <input type="text" value="6/11/2025 — 07:57">
+                    <div class="modal-box request-modal">
 
-   <label>Duration:</label>
-   <input type="text" value="60 mins">
+                        <h2 class="modal-title">{{ $req->student->full_name }}</h2>
 
-   <label>Price:</label>
-   <input type="text" value="165000">
+                        <p><b>Student:</b> {{ $req->student->full_name }}</p>
+                        <p><b>Tutor:</b> {{ $req->tutor->full_name }}</p>
+                        <p><b>Subject:</b> {{ $req->subject }}</p>
 
-   <label>Notes:</label>
-   <textarea></textarea>
+                        <label>Schedule:</label>
+                        <input type="text" value="{{ $req->schedule->format('m/d/Y — H:i') }}" />
 
-   <label>Status:</label>
-   <select>
-    <option>DISCUSS</option>
-    <option>DEAL</option>
-    <option>ONGOING</option>
-    <option>DONE</option>
-    <option>CANCELED</option>
-   </select>
+                        <label>Status:</label>
+                        <select disabled>
+                            <option>{{ strtoupper($req->status) }}</option>
+                        </select>
 
-   <label for="view-1" class="close-btn">Close</label>
-  </div>
- </div>
+                        <!-- Tombol Close -->
+                        <label for="view-{{ $req->id }}" class="close-btn">Close</label>
+                    </div>
+                </div>
 
- <!-- =========================================
-     EDIT STATUS MODAL
-     ========================================= -->
- <input type="checkbox" id="edit-1" class="modal-toggle">
- <div class="modal">
-  <label for="edit-1" class="modal-overlay"></label>
-  <div class="modal-box small-modal">
-   <h3>Edit Status</h3>
 
-   <select class="status-select">
-    <option>DISCUSS</option>
-    <option>DEAL</option>
-    <option>ONGOING</option>
-    <option>DONE</option>
-    <option>CANCELED</option>
-   </select>
+                <!-- ================================
+                    DELETE CONFIRMATION MODAL
+                    ================================ -->
+                <input type="checkbox" id="delete-{{ $req->id }}" class="modal-toggle">
+                <div class="modal">
+                    <label for="delete-{{ $req->id }}" class="modal-overlay"></label>
 
-   <label for="edit-1" class="close-btn">Save</label>
-  </div>
- </div>
+                    <div class="modal-box delete-modal">
+                        <h3>Are you sure?</h3>
+                        <p>This request will be permanently removed.</p>
 
- <!-- =========================================
-     DELETE CONFIRMATION MODAL
-     ========================================= -->
- <input type="checkbox" id="delete-1" class="modal-toggle">
- <div class="modal">
-  <label for="delete-1" class="modal-overlay"></label>
-  <div class="modal-box delete-modal">
+                        <div class="delete-actions">
 
-   <h3>Are you sure?</h3>
-   <p>This request will be permanently removed.</p>
+                            <label for="delete-{{ $req->id }}" class="btn-cancel">Cancel</label>
 
-   <div class="delete-actions">
-    <label for="delete-1" class="btn-cancel">Cancel</label>
-    <label class="btn-confirm">Delete</label>
-   </div>
-  </div>
+                            <form action="{{ route('admin.request.delete', $req->id) }}" method="POST" style="display:inline">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn-confirm" type="submit">
+                                    Delete
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
 
- </div>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
+</main>
 
 @endsection

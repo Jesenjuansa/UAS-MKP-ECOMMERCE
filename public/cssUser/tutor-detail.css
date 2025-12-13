@@ -1,211 +1,396 @@
-/* =========================
-   Tutor Detail Page
-   ========================= */
+    /* ===== BASE ===== */
+    :root {
+      --accent: #162e72;
+      --muted: #666;
+      --card-bg: #fff;
+      --soft: #f7f8fb;
+      --radius: 12px;
+    }
 
-body {
- font-family: 'Poppins', sans-serif;
- background-color: #f9f9f9;
- color: #333;
-}
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-.tutor-detail-container {
- display: flex;
- gap: 40px;
- padding: 40px 60px;
- max-width: 1300px;
- margin: auto;
-}
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9fb;
+      color: #222;
+      line-height: 1.45
+    }
 
-.tutor-info {
- flex: 1;
-}
+    a {
+      color: inherit;
+      text-decoration: none
+    }
 
-.tutor-info h2 {
- font-size: 1.8rem;
- margin-bottom: 10px;
- color: #333;
-}
+    /* ===== LAYOUT ===== */
+    .container {
+      max-width: 1200px;
+      margin: 34px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 32px;
+      align-items: flex-start
+    }
 
-.tutor-info p {
- line-height: 1.6;
- margin-bottom: 20px;
-}
+    .left {
+      flex: 1
+    }
 
-/* Languages & Experience sejajar */
-.detail-row {
- display: flex;
- flex-wrap: wrap;
- gap: 15px;
-}
+    .right {
+      width: 420px;
+      flex-shrink: 0
+    }
 
-.detail-row .detail-card {
- flex: 1 1 45%;
-}
+    /* ===== LEFT: tutor info ===== */
+    .panel {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 22px;
+      box-shadow: 0 4px 14px rgba(16, 24, 40, 0.04);
+      margin-bottom: 18px
+    }
 
-/* Card umum */
-.detail-card {
- background: #fff;
- border-radius: 10px;
- padding: 18px 20px;
- box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
- margin-bottom: 20px;
-}
+    .panel h1 {
+      font-family: 'Poppins', sans-serif;
+      color: var(--accent);
+      font-size: 22px;
+      margin-bottom: 10px
+    }
 
-.detail-card h3 {
- color: #162e72;
- margin-bottom: 8px;
- font-weight: 500;
-}
+    .panel p.lead {
+      color: var(--muted);
+      margin-bottom: 18px
+    }
 
-.detail-card p {
- color: #333;
- font-size: 0.95rem;
-}
+    .grid-2 {
+      display: flex;
+      gap: 16px
+    }
 
-/* Pricing tanpa bullet */
-.pricing-card p {
- margin-left: 0;
- list-style: none;
-}
+    .pricing-list {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px
+    }
 
-/* Subjects */
-.subjects h3 {
- margin-bottom: 8px;
- color: #162e72;
-}
+    .pkg {
+      background: #fff;
+      border: 1px dashed #eee;
+      padding: 12px;
+      border-radius: 10px
+    }
 
-.badges span {
- background-color: #e9ebf7;
- color: #162e72;
- padding: 6px 12px;
- margin: 4px;
- border-radius: 20px;
- display: inline-block;
- font-size: 0.9rem;
-}
+    .pkg strong {
+      display: block;
+      color: #111;
+      margin-bottom: 6px
+    }
 
-/* Right Section */
-.profile-form {
- flex: 0.9;
- display: flex;
- flex-direction: column;
- gap: 20px;
-}
+    .badges {
+      margin-top: 12px
+    }
 
-.profile-card {
- background: #fff;
- border-radius:  10px;
- padding: 25px 5px;
- text-align: center;
- box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-}
+    .badges span {
+      display: inline-block;
+      background: #eef3ff;
+      color: var(--accent);
+      padding: 6px 10px;
+      border-radius: 18px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      font-size: 13px
+    }
 
-.profile-card img {
- width: 200px;
- height: 200px;
- border-radius: 10px;
- object-fit: cover;
- margin-bottom: 10px;
-}
+    /* ===== RIGHT: profile + packages + request form ===== */
+    .profile-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(16, 24, 40, 0.04);
+      margin-bottom: 16px
+    }
 
-.profile-card h2 {
- margin: 0;
-}
+    .profile-card img {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin: 0 auto 12px;
+      display: block
+    }
 
-.profile-card .education {
- font-size: 0.95rem;
- color: #777;
- margin-top: 5px;
-}
+    .profile-card h2 {
+      font-size: 20px;
+      color: var(--accent);
+      margin-bottom: 6px
+    }
 
-.rating span {
- font-size: 0.9rem;
- color: #666;
-}
+    .profile-card p.title {
+      color: var(--muted);
+      margin-bottom: 8px
+    }
 
-/* Form */
-.request-form {
- background: #fff;
- border-radius: 12px;
- padding: 25px;
- box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-}
+    .rating {
+      margin-top: 8px;
+      color: #444;
+      font-weight: 600
+    }
 
-.request-form h3 {
- color: #162e72;
- margin-bottom: 15px;
-}
+    /* packages box */
+    .packages {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 6px 20px rgba(16, 24, 40, 0.04);
+      margin-bottom: 16px
+    }
 
-.request-form label {
- font-size: 0.95rem;
- margin-bottom: 4px;
- display: block;
-}
+    .packages h3 {
+      font-size: 16px;
+      color: var(--accent);
+      margin-bottom: 12px
+    }
 
-.request-form input,
-.request-form select,
-.request-form textarea {
- width: 100%;
- padding: 10px;
- border-radius: 6px;
- border: 1px solid #ccc;
- margin-bottom: 15px;
- font-family: 'Poppins', sans-serif;
-}
+    .pkg-row {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #f0f0f0;
+      margin-bottom: 10px;
+      background: #fff
+    }
 
-.send-btn {
- width: 100%;
- padding: 12px;
- background-color: #000000;
- color: white;
- border: none;
- border-radius: 8px;
- font-size: 1rem;
- transition: background 0.2s ease;
-}
+    .pkg-left {
+      flex: 1
+    }
 
-.send-btn:hover {
- background-color: #162e72;
-}
+    .pkg-left b {
+      display: block;
+      color: #111;
+      margin-bottom: 6px
+    }
 
-/* Notification */
-.notification {
- position: fixed;
- bottom: 20px;
- right: 20px;
- background: #6bbf59;
- color: #fff;
- padding: 14px 18px;
- border-radius: 6px;
- box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
- opacity: 0;
- transition: opacity 0.5s ease;
-}
+    .pkg-left small {
+      display: block;
+      color: var(--muted);
+      font-size: 13px
+    }
 
-.hidden {
- display: none;
-}
+    .pkg-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      align-items: flex-end
+    }
 
-/* Responsive */
-@media (max-width: 900px) {
- .tutor-detail-container {
-  flex-direction: column-reverse;
-  padding: 20px;
- }
+    .pkg-actions input[type="number"] {
+      width: 84px;
+      padding: 8px;
+      border-radius: 8px;
+      border: 1px solid #ddd
+    }
 
- .detail-row {
-  flex-direction: column;
- }
-}
+    .pkg-actions input[type="checkbox"] {
+      width: 18px;
+      height: 18px
+    }
 
-.tutor-info input,
-.tutor-info textarea,
-.profile-card input {
-  resize: none;
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-#photoInput {
-  margin-top: 10px;
-}
+    .note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 8px
+    }
+
+    /* summary & payment */
+    .summary {
+      background: var(--soft);
+      border-radius: 10px;
+      padding: 12px;
+      border: 1px solid #eee;
+      margin-bottom: 16px
+    }
+
+    .summary h4 {
+      margin-bottom: 8px;
+      color: var(--accent)
+    }
+
+    .summary .line {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed #eee
+    }
+
+    .summary .total {
+      font-weight: 700;
+      margin-top: 8px;
+      font-size: 16px;
+      text-align: right
+    }
+
+    /* request form */
+    form.request-form {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      padding: 16px;
+      border: 1px solid #eee
+    }
+
+    form.request-form h3 {
+      color: var(--accent);
+      margin-bottom: 12px
+    }
+
+    form.request-form label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #333
+    }
+
+    form.request-form input[type="text"],
+    form.request-form input[type="tel"],
+    form.request-form input[type="email"],
+    form.request-form select,
+    form.request-form textarea,
+    form.request-form input[type="file"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      margin-bottom: 12px;
+      font-size: 14px
+    }
+
+    .small-row {
+      display: flex;
+      gap: 10px
+    }
+
+    .small-row .half {
+      flex: 1
+    }
+
+    .send-btn {
+      display: inline-block;
+      width: 100%;
+      padding: 12px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 10px;
+      border: 0;
+      font-weight: 600;
+      cursor: pointer
+    }
+
+    .send-btn:active {
+      transform: translateY(1px)
+    }
+
+    /* bank info card */
+    .bank-card {
+      background: #fff;
+      padding: 12px;
+      border-radius: 10px;
+      border: 1px solid #f0f0f0;
+      margin-bottom: 12px
+    }
+
+    .bank-card h4 {
+      margin-bottom: 6px;
+      color: var(--accent)
+    }
+
+    .bank-info {
+      font-weight: 600;
+      color: #111
+    }
+
+    /* helper text */
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 6px
+    }
+
+    /* responsive */
+    @media (max-width: 980px) {
+      .container {
+        flex-direction: column;
+        padding: 0 18px
+      }
+
+      .right {
+        width: 100%
+      }
+    }
+
+    .days {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .grid-2 {
+      display: flex;
+      gap: 16px;
+      padding-left: 20px;
+      margin-top: 10px;
+    }
+
+    .detail-card {
+      flex: 1;
+      background: #fff;
+      padding: 14px;
+      border-radius: 10px;
+      border: 1px solid #eee;
+    }
+
+    .reviews-section {
+      margin-top: 40px;
+      background: #fff;
+      padding: 22px;
+      border-radius: 12px;
+      box-shadow: 0 4px 14px rgba(16, 24, 40, 0.05);
+    }
+
+    .reviews-title {
+      font-size: 20px;
+      color: var(--accent);
+      margin-bottom: 14px;
+      font-weight: 600;
+    }
+
+    .review-card {
+      border: 1px solid #eee;
+      padding: 14px;
+      border-radius: 10px;
+      margin-bottom: 14px;
+      background: #fafafa;
+    }
+
+    .review-stars {
+      font-size: 18px;
+      margin-bottom: 6px;
+      color: #f5b300;
+    }
+
+    .review-text {
+      font-size: 14px;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .review-author {
+      font-size: 13px;
+      color: var(--muted);
+    }

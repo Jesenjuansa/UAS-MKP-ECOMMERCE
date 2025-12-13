@@ -5,170 +5,134 @@
 <link rel="stylesheet" href="{{ asset('cssAdmin/sidebar.css') }}">
 <link rel="stylesheet" href="{{ asset('cssAdmin/usermanagement.css') }}">
 
-    
-    <div class="page-header">
-      <h1>User Management</h1>
-      <p class="sub">Manage all students and tutors registered in your system</p>
-    </div>
 
-    <div class="tab-buttons">
-      <label for="tab-students" class="tab">Students</label>
-      <label for="tab-tutors" class="tab">Tutors</label>
-    </div>
+<div class="page-header">
+    <h1>User Management</h1>
+    <p class="sub">Manage all students and tutors registered in your system</p>
+</div>
 
-    <div class="search-box">
-      <input type="text" placeholder="Search user...">
-      <i class="fa-solid fa-search"></i>
-    </div>
+<div class="tab-buttons">
+    <label for="tab-students" class="tab">Students</label>
+    <label for="tab-tutors" class="tab">Tutors</label>
+</div>
 
-    <!-- STUDENTS SECTION -->
-    <section class="section" id="students">
-      <h2 class="section-title">Students List</h2>
-      <table class="data-table">
+<!-- STUDENTS SECTION -->
+<section class="section" id="students">
+    <h2 class="section-title">Students List</h2>
+    <table class="data-table">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Registered Date</th>
-            <th>Total Bookings</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Registered Date</th>
+                <th>Total Bookings</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
+            @foreach($students as $student)
+            <tr>
+                <td>{{ $student->full_name }}</td>
+                <td>{{ $student->email }}</td>
+                <td>{{ $student->created_at->format('Y-m-d') }}</td>
+                <td>{{ $student->lessons_as_student_count }}</td>
 
-          <!-- Aisyah: ACTIVE ROW (visible when #toggle-aisyah-status is unchecked) -->
-          <tr class="row-aisyah row-active-aisyah">
-            <td>Aisyah Rahma</td>
-            <td>aisyah@example.com</td>
-            <td>2024-02-15</td>
-            <td>12</td>
-            <td><span class="status active">Active</span></td>
-            <td class="actions">
+                <td>
+                    @if($student->status === 'active')
+                    <span class="status active">Active</span>
+                    @else
+                    <span class="status suspended">Suspended</span>
+                    @endif
+                </td>
 
-              <label for="modal-edit-aisyah" class="action-btn">Edit</label>
+                <td class="actions">
 
-              <label for="toggle-aisyah-status" class="action-btn warn">Suspend</label>
-            </td>
-          </tr>
+                    @if($student->status === 'active')
+                    <form action="{{ route('admin.student.suspend', $student->id) }}" method="POST">
+                        @csrf
+                        <button class="action-btn warn">Suspend</button>
+                    </form>
+                    @else
+                    <form action="{{ route('admin.student.activate', $student->id) }}" method="POST">
+                        @csrf
+                        <button class="action-btn safe">Unsuspend</button>
+                    </form>
+                    @endif
+                </td>
+            </tr>
 
-          <!-- Aisyah: SUSPENDED ROW (visible when #toggle-aisyah-status is checked) -->
-          <tr class="row-aisyah row-suspended-aisyah">
-            <td>Aisyah Rahma</td>
-            <td>aisyah@example.com</td>
-            <td>2024-02-15</td>
-            <td>12</td>
-            <td><span class="status suspended">Suspended</span></td>
-            <td class="actions">
-              <label for="modal-edit-aisyah" class="action-btn">Edit</label>
-              <label for="toggle-aisyah-status" class="action-btn safe">Unsuspend</label>
-            </td>
-          </tr>
 
-          <!-- Modal for editing Aisyah (checkbox must be immediately before .modal so + selector works) -->
-          <input type="checkbox" id="modal-edit-aisyah" class="modal-toggle">
-          <div class="modal">
-            <label for="modal-edit-aisyah" class="modal-overlay"></label>
-            <div class="modal-box">
-              <h3>Edit Student</h3>
-
-              <label>Name</label>
-              <input type="text" value="Aisyah Rahma" class="modal-input">
-
-              <label style="margin-top:10px;">Email</label>
-              <input type="email" value="aisyah@example.com" class="modal-input">
-
-              <label for="modal-edit-aisyah" class="close-btn">Save</label>
-            </div>
-          </div>
-
+            @endforeach
         </tbody>
-      </table>
-    </section>
 
-    <!-- TUTORS SECTION -->
-    <section class="section" id="tutors">
-      <h2 class="section-title">Tutors List</h2>
-      <table class="data-table">
+
+    </table>
+</section>
+
+<!-- TUTORS SECTION -->
+<section class="section" id="tutors">
+    <h2 class="section-title">Tutors List</h2>
+    <table class="data-table">
         <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Verified?</th>
-            <th>Subjects</th>
-            <th>Payment Info</th>
-            <th>Total Lessons</th>
-            <th>Status</th>
-            <th>Actions</th>
-          </tr>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Verified?</th>
+                <th>Subjects</th>
+                <th>Total Lessons</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
         </thead>
         <tbody>
+            @foreach ($tutors as $tutor)
 
-          <!-- ================== ABDULLAH ================== -->
-          <!-- Active row (shown when #toggle-abdullah-status is unchecked) -->
-          <tr class="row-abdullah row-active-abdullah">
-            <td>Ustadz Abdullah</td>
-            <td>abdullah@example.com</td>
-            <td>Yes</td>
-            <td>Qur'an Recitation</td>
-            <td class="status filled payment-filled-abdullah">Filled</td>
-            <td>48</td>
-            <td><span class="status active">Active</span></td>
-            <td class="actions">
-              <label for="modal-edit-abdullah" class="action-btn">Edit</label>
-              <label for="toggle-abdullah-status" class="action-btn warn">Suspend</label>
-            </td>
-          </tr>
+            <tr>
+                <td>{{ $tutor->full_name }}</td>
+                <td>{{ $tutor->email }}</td>
 
-          <!-- Suspended row (shown when #toggle-abdullah-status is checked) -->
-          <tr class="row-abdullah row-suspended-abdullah">
-            <td>Ustadz Abdullah</td>
-            <td>abdullah@example.com</td>
-            <td>Yes</td>
-            <td>Qur'an Recitation</td>
-            <td class="status filled">Filled</td>
-            <td>48</td>
-            <td><span class="status suspended">Suspended</span></td>
-            <td class="actions">
-              <label for="modal-edit-abdullah" class="action-btn">Edit</label>
-              <label for="toggle-abdullah-status" class="action-btn.safe">Unsuspend</label>
-            </td>
-          </tr>
+                {{-- Verified --}}
+                <td>
+                    {{ $tutor->verified ? 'Yes' : 'No' }}
+                </td>
 
-          <!-- Modal edit Abdullah -->
-          <input type="checkbox" id="modal-edit-abdullah" class="modal-toggle">
-          <div class="modal">
-            <label for="modal-edit-abdullah" class="modal-overlay"></label>
-            <div class="modal-box">
-              <h3>Edit Tutor — Ustadz Abdullah</h3>
+                {{-- Subject --}}
+                <td>{{ $tutor->teaching_subject ?? '-' }}</td>
 
-              <label>Name</label>
-              <input type="text" value="Ustadz Abdullah" class="modal-input">
 
-              <label style="margin-top:10px;">Email</label>
-              <input type="email" value="abdullah@example.com" class="modal-input">
+                {{-- Total Bookings --}}
+                <td>{{ $tutor->total_bookings }}</td>
 
-              <label style="margin-top:10px;">Verified?</label>
-              <div style="margin-top:6px;">
-                <label><input type="radio" name="verified-abdullah" checked> Yes</label>
-                <label style="margin-left:12px;"><input type="radio" name="verified-abdullah"> No</label>
-              </div>
+                {{-- STATUS --}}
+                <td>
+                    <span class="status {{ $tutor->status }}">
+                        {{ ucfirst($tutor->status) }}
+                    </span>
+                </td>
 
-              <label style="margin-top:10px;">Subjects</label>
-              <input type="text" value="Qur'an Recitation" class="modal-input">
+                {{-- ACTIONS --}}
+                <td class="actions">
 
-              <!--PAYMENT INFO (UPDATED!) -->
-              <label style="margin-top:10px;">Payment Info</label>
-              <div style="margin-top:6px;">
-                <label><input type="radio" name="payment-abdullah" checked> Filled</label>
-                <label style="margin-left:12px;"><input type="radio" name="payment-abdullah"> Not Filled</label>
-              </div>
+                    {{-- SUSPEND OR UNSUSPEND --}}
+                    @if ($tutor->status === 'active')
+                    <form method="POST" action="{{ route('admin.tutor.suspend', $tutor->id) }}">
+                        @csrf
+                        <button class="action-btn warn">Suspend</button>
+                    </form>
+                    @else
+                    <form method="POST" action="{{ route('admin.tutor.activate', $tutor->id) }}">
+                        @csrf
+                        <button class="action-btn safe">Unsuspend</button>
+                    </form>
+                    @endif
 
-              <label for="modal-edit-abdullah" class="close-btn">Save</label>
-            </div>
-          </div>
+                </td>
+            </tr>
 
+            @endforeach
         </tbody>
-      </table>
-    </section>
-    @endsection
+
+    </table>
+</section>
+@endsection

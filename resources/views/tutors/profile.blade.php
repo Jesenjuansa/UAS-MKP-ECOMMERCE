@@ -1,111 +1,221 @@
 @extends('components.layoutUser')
 
-
 @section('content')
 <link rel="stylesheet" href="{{ asset('cssUser/navbar.css') }}">
-<link rel="stylesheet" href="{{ asset('cssUser/tutor-profile.css') }}">
-<main class="tutor-profile-container">
 
-    <!-- ==================================================
-         LEFT FORM — EDIT PUBLIC PROFILE
-         (Semua data di sini akan muncul di tutor-detail.html)
-    ====================================================== -->
-    <form action="/tutor/update-profile" method="POST" enctype="multipart/form-data" class="tp-left">
+<style>
+    body { background: #f5f7fa; }
 
-      <h2>Edit Profile</h2>
+    .profile-container {
+        max-width: 1100px;
+        margin: 40px auto;
+        padding: 0 20px;
+    }
 
-      <!-- DESCRIPTION -->
-      <label for="desc">Description</label>
-      <textarea id="desc" name="description" rows="4"></textarea>
+    .profile-header {
+        margin-bottom: 25px;
+    }
 
-      <!-- LANG & EXP -->
-      <div class="tp-row">
-        <div class="tp-card">
-          <h3>Languages</h3>
-          <input type="text" name="languages" placeholder="e.g. English, Indonesian">
-        </div>
+    .profile-header h1 {
+        font-size: 32px;
+        font-weight: 700;
+        color: #222;
+        margin-bottom: 5px;
+    }
 
-        <div class="tp-card">
-          <h3>Experience</h3>
-          <input type="text" name="experience" placeholder="e.g. 3 years teaching">
-        </div>
-      </div>
+    .profile-header p {
+        color: #666;
+        font-size: 15px;
+    }
 
-      <!-- PRICING -->
-      <div class="tp-card-full">
-        <h3>Pricing</h3>
-        <textarea name="pricing" rows="3" placeholder="e.g. Rp100.000 / session"></textarea>
-      </div>
+    .profile-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 30px;
+        align-items: start;
+    }
 
-      <!-- SCHEDULE -->
-      <div class="tp-card-full">
-        <h3>Schedule / Availability</h3>
-        <textarea name="availability" rows="3" placeholder="e.g. Mon–Fri, 4PM–8PM"></textarea>
-      </div>
+    /* LEFT SECTION */
+    .profile-card {
+        background: #fff;
+        padding: 30px 35px;
+        border-radius: 14px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
 
-      <!-- SUBJECTS -->
-      <div class="tp-card-full">
-        <h3>Teaching Focus</h3>
-        <input type="text" name="subjects" placeholder="e.g. Math, Physics">
-      </div>
+    .profile-card label {
+        font-weight: 600;
+        color: #333;
+        margin-top: 10px;
+    }
 
-      <button type="submit" class="tp-save-btn">Save Profile</button>
-    </form>
+    .profile-card input,
+    .profile-card select {
+        width: 100%;
+        padding: 12px;
+        margin-top: 6px;
+        border: 1px solid #d0d0d0;
+        border-radius: 8px;
+        font-size: 15px;
+    }
+
+    .profile-card button {
+        width: 100%;
+        background: #111;
+        color: #fff;
+        padding: 14px;
+        border-radius: 8px;
+        border: none;
+        font-size: 16px;
+        margin-top: 18px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .profile-card button:hover {
+        background: #000;
+    }
+
+    .photo-box {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .photo-box img {
+        width: 160px;
+        height: 160px;
+        object-fit: cover;
+        border-radius: 12px;
+        border: 3px solid #eee;
+        margin-bottom: 10px;
+    }
+
+    /* RIGHT SECTION */
+    .info-card {
+        background: #fff;
+        padding: 30px;
+        border-radius: 14px;
+        box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+    }
+
+    .info-card h3 {
+        font-size: 22px;
+        margin-bottom: 20px;
+        font-weight: 700;
+        color: #222;
+    }
+
+    .info-item {
+        margin-bottom: 14px;
+    }
+
+    .info-item strong {
+        color: #333;
+    }
+
+    .badge {
+        padding: 5px 12px;
+        font-size: 13px;
+        border-radius: 8px;
+        color: #fff;
+        margin-left: 6px;
+    }
+
+    .badge.active { background: #28a745; }
+    .badge.suspended { background: #dc3545; }
+    .badge.pending { background: #ffc107; color:#222; }
+
+    .info-value {
+        font-weight: 600;
+        margin-left: 4px;
+    }
+
+</style>
 
 
 
+<div class="profile-container">
 
-    <!-- ==================================================
-         RIGHT FORM — PHOTO + PAYMENT INFO
-         (Payment info TIDAK muncul di tutor-detail)
-    ====================================================== -->
-    <aside class="tp-right">
-      <form action="/tutor/update-payment" method="POST" enctype="multipart/form-data">
+    <div class="profile-header">
+        <h1>Tutor Profile</h1>
+        <p>Manage your personal information & teaching details.</p>
+    </div>
 
-        <!-- PHOTO + BASIC IDENTIY -->
-        <div class="tp-profile-card">
-          <img src="/images/w1.jpg" alt="Tutor Photo">
-          <input type="file" name="photo">
+    <div class="profile-grid">
 
-          <h2>
-            <input type="text" name="name" placeholder="Tutor Name">
-          </h2>
+        <!-- ============================
+             LEFT — FORM PROFILE
+        ============================= -->
+        <form action="{{ route('tutors.profile.update') }}" method="POST" enctype="multipart/form-data" class="profile-card">
+            @csrf
 
-          <p>
-            <input type="text" name="title" placeholder="Tutor Title">
-          </p>
+            <div class="photo-box">
+                <img src="{{ $tutor->pas_foto
+                    ? asset('uploads/tutors/'.$tutor->pas_foto)
+                    : asset('images/default-user.png') }}">
+                <input type="file" name="pas_foto">
+            </div>
 
-          <p class="tp-edu">
-            <input type="text" name="education" placeholder="Education">
-          </p>
+            <label>Full Name</label>
+            <input type="text" name="full_name" value="{{ $tutor->full_name }}" required>
 
-          <div class="tp-rating">⭐ 4.9 <span>(58 students)</span></div>
-        </div>
+            <label>Email</label>
+            <input type="text" value="{{ $tutor->email }}" disabled>
+
+            <label>Phone Number</label>
+            <input type="text" name="phone_number" value="{{ $tutor->phone_number }}">
+
+            <label>Class Type</label>
+            <select name="class_type">
+                <option value="">-- Select --</option>
+                <option value="online" {{ $tutor->class_type == 'online' ? 'selected' : '' }}>Online</option>
+                <option value="offline" {{ $tutor->class_type == 'offline' ? 'selected' : '' }}>Offline</option>
+                <option value="hybrid" {{ $tutor->class_type == 'hybrid' ? 'selected' : '' }}>Hybrid</option>
+            </select>
+
+            <button>Save Profile</button>
+        </form>
 
 
-        <!-- PAYMENT INFO (khusus tutor-profile) -->
-        <div class="tp-payment-card">
-          <h3>Payment Information</h3>
 
-          <label>Bank Name</label>
-          <input type="text" name="bank_name" placeholder="BCA / BNI / BRI">
+        <!-- ============================
+             RIGHT — ACCOUNT STATS
+        ============================= -->
+        <aside class="info-card">
+            <h3>Account Information</h3>
 
-          <label>Account Number</label>
-          <input type="text" name="account_number" placeholder="Enter account number">
+            <div class="info-item">
+                <strong>Status:</strong>
+                <span class="badge {{ $tutor->status }}">
+                    {{ ucfirst($tutor->status) }}
+                </span>
+            </div>
 
-          <label>Account Holder Name</label>
-          <input type="text" name="account_holder" placeholder="Name as registered in bank">
+            <div class="info-item">
+                <strong>Verified:</strong>
+                <span class="info-value">{{ $tutor->verified ? 'Yes' : 'No' }}</span>
+            </div>
 
-          <label>E-wallet (Optional)</label>
-          <input type="text" name="ewallet" placeholder="Dana / OVO / Gopay">
+            <div class="info-item">
+                <strong>Total Earnings:</strong>
+                <span class="info-value">
+                    Rp {{ number_format($totalEarnings ?? 0, 0, ',', '.') }}
+                </span>
+            </div>
 
-          <button type="submit" class="tp-save-payment-btn">
-            Save Payment Info
-          </button>
-        </div>
+            <div class="info-item">
+                <strong>Total Students:</strong>
+                <span class="info-value">{{ $totalStudents ?? 0 }}</span>
+            </div>
 
-      </form>
-    </aside>
+            <div class="info-item">
+                <strong>Rating:</strong>
+                <span class="info-value">⭐ {{ number_format($rating ?? 0, 1) }}</span>
+            </div>
 
-  </main>
+        </aside>
+
+    </div>
+</div>
+
 @endsection

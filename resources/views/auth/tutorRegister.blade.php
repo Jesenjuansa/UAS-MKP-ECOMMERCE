@@ -66,10 +66,13 @@
             <select name="teaching_subject" required>
                 <option value="">Select</option>
                 <option>Iqra & Basic Qur’an Reading</option>
-                <option>Tajweed & Tilawah</option>
-                <option>Tahfidz / Memorization</option>
-                <option>Tahsin Qur’an Recitation</option>
-                <option>Daily Du’a & Worship</option>
+                <option>Programming</option>
+                <option>Mathematics</option>
+                <option>English</option>
+                <option>Mandarin</option>
+                <option>Science</option>
+                <option>Baking class</option>
+                <option>Drawing</option>
             </select>
         </div>
 
@@ -78,13 +81,9 @@
             <select name="class_type" required>
                 <option value="">Select</option>
                 <option>Online</option>
-                <option>In-person</option>
+                <option>Offline</option>
+                <option>Both</option>
             </select>
-        </div>
-
-        <div class="form-group">
-            <label>Rate per Session</label>
-            <input type="number" name="rate_per_session" required>
         </div>
 
     </div>

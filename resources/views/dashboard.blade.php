@@ -76,11 +76,11 @@
 </style>
   <!-- ===== HERO SECTION ===== -->
   <section class="hero">
-    <img src="{{ asset('images/cr.jpg') }}" alt="Hero Background" class="hero-bg" />
+    <img src="images/images/home.jpg" alt="Hero Background" class="hero-bg" />
     <div class="hero-content">
-      <h1>Find Your Ideal Qur’an Tutor for a Personalized Learning Journey</h1>
+      <h1>Find Your Ideal Tutor for a Personalized Learning Journey</h1>
       <p>Learn anytime, anywhere with trusted and qualified tutors.</p>
-      <a href="tutors.html" class="btn">Reserve Now</a>
+       <a class="btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Reserve Now</a>
     </div>
   </section>
 
@@ -93,12 +93,12 @@
       </div>
       <div class="divider"></div>
       <div class="stat-item">
-        <h2>2.000+</h2>
+        <h2>4.000+</h2>
         <p>Learning Sessions</p>
       </div>
       <div class="divider"></div>
       <div class="stat-item">
-        <h2>5</h2>
+        <h2>12</h2>
         <p>Learning Programs</p>
       </div>
     </div>
@@ -123,21 +123,33 @@
             <p>Learn basic Arabic to understand Qur’anic vocabulary.</p>
             <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
         </div>
+        <!-- Product 4 -->
+        <div class="product-card">
+            <img src="../images/teach.jpg" alt="Arabic Basics" />
+            <h3>Arabic Basics</h3>
+            <p>Learn basic Arabic to understand Qur’anic vocabulary.</p>
+            <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
+        </div>
+        <!-- Product 4 -->
+        <div class="product-card">
+            <img src="../images/teach.jpg" alt="Arabic Basics" />
+            <h3>Arabic Basics</h3>
+            <p>Learn basic Arabic to understand Qur’anic vocabulary.</p>
+            <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
+        </div>
     </div>
 </section>
-
-
   <!-- ===== TEACHER ===== -->
   <section class="tutor">
     <div class="section-header">BECOME PART OF <span> PrivEdu </span></div>
     <div class="wrapper">
       <div class="content-wrapper">
-        <img src="../images/teach.jpg" class="hero-img">
+        <img src="images/images/home2.jpg" class="hero-img">
         <div class="card1">
-          <h1>READY TO SHARE <span>your</span><br>Qur’an Knowledge <span>with </span>Others?</h1>
+          <h1>READY TO SHARE <span>your</span><br>Knowledge <span>with </span>Others?</h1>
           <p>
-            Let’s create something powerful together. Join our mission to spread the beauty of Qur’an learning. As a
-            PrivEdu tutor, you’ll inspire students, share your passion, and make a meaningful impact.
+            Let’s create something powerful together. Join our mission to make learning accessible for everyone.
+            As a PrivEdu tutor, you’ll inspire students, share your expertise, and make a meaningful impact.
           </p>
           <a href="{{ route('auth.register.tutor') }}" class="btn">Join as a Tutor</a>
         </div>

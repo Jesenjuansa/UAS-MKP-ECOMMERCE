@@ -21,14 +21,25 @@ return new class extends Migration
             $table->string('password');
 
             // ROLE
-            $table->enum('role', ['student', 'tutor'])->default('student');
+            $table->enum('role', ['student', 'tutor', 'admin'])->default('student');
+             // TUTOR VERIFIED STATUS
+            $table->boolean('verified')->default(false);
+
+            // TOTAL BOOKING (berapa murid yang diajar)
+            $table->integer('total_bookings')->default(0);
+
+              // Status akun (PENTING)
+            $table->enum('status', ['active', 'suspended'])->default('active');
+
+            $table->string('bank_name')->nullable();
+            $table->string('bank_account')->nullable();
+            $table->string('account_holder')->nullable();
 
             // FIELD KHUSUS TUTOR (nullable)
             $table->string('phone_number')->nullable();
             $table->string('pas_foto')->nullable();
             $table->string('teaching_subject')->nullable();
             $table->string('class_type')->nullable();
-            $table->integer('rate_per_session')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

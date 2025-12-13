@@ -15,16 +15,21 @@
             <li class="{{ request()->routeIs('admin.verification') ? 'active' : '' }}"><a href="{{ route('admin.verification') }}"><i class="fa-solid fa-user-check"></i> Tutor Verification</a></li>
             <li class="{{ request()->routeIs('admin.request') ? 'active' : '' }}"><a href="{{ route('admin.request') }}"><i class="fa-solid fa-book-open"></i> Lesson Request Management</a></li>
             <li class="{{ request()->routeIs('admin.payment') ? 'active' : '' }}"><a href="{{ route('admin.payment') }}"><i class="fa-solid fa-credit-card"></i> Payment Management</a></li>
-           
+
         </ul>
 
         <div class="sidebar-bottom">
             <div class="user-box">
                 <div class="avatar">A</div>
+
                 <div>
                     <p class="username">admin</p>
                     <p class="role">admin</p>
                 </div>
+                <form method="POST" action="{{ route('auth.logout') }}">
+                            @csrf
+                            <button type="submit" class="logout-btn">Logout</button>
+                        </form>
             </div>
         </div>
     </aside>

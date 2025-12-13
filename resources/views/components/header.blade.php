@@ -20,7 +20,7 @@
                     <div class="dropdown">
                         {{-- Profile sesuai role --}}
                         @if($role == 'tutor')
-                            <a href="{{-- {{ route('tutors.profile') }} --}}">My Profile</a>
+                            <a href="{{ route('tutors.profile') }}">My Profile</a>
                         @else
                             <a href="{{-- {{ route('students.profile') }} --}}">My Profile</a>
                         @endif
@@ -50,7 +50,7 @@
             {{-- NAV TUTOR --}}
             @if($role == 'tutor')
                 <li><a href="{{ route('tutors.home') }}">Home</a></li>
-                <li><a href="{{ route('tutors.about') }}">About</a></li>
+                <li><a href="{{ route('tutors.classes') }}">My Classes</a></li>
                 <li><a href="{{ route('tutors.request') }}">Request</a></li>
                 <li><a href="{{ route('tutors.schedule') }}">Schedule</a></li>
 

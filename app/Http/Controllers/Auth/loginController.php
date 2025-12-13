@@ -24,7 +24,7 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        $request->validate([
+       /*  $credentials = $request->validate([
             'login' => 'required',
             'password' => 'required'
         ]);
@@ -34,19 +34,50 @@ class LoginController extends Controller
             ? 'email'
             : 'full_name';
 
-        // Coba login
-        if (Auth::attempt([$loginField => $request->login, 'password' => $request->password])) {
+        if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
-            // Redirect sesuai role
-            return Auth::user()->role === 'tutor'
-                ? redirect()->route('tutors.home')
-                : redirect()->route('student.home');
+            // Redirect berdasarkan role
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin.dashboard')->with('success', 'Berhasil login sebagai Admin.');
+            } elseif (Auth::user()->role === 'tutor') {
+                return redirect()->route('tutor.home')->with('success', 'Berhasil login sebagai Tutor.');
+            } elseif (Auth::user()->role === 'student') {
+                return redirect()->route('student.home')->with('success', 'Berhasil login sebagai Student.');
+            } else {
+                return redirect()->route('dashboard')->with('success', 'Berhasil login sebagai guest.');
+            }
+        } */
+
+              // Validasi input
+        $credentials = $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ], [
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'password.required' => 'Password wajib diisi.',
+        ]);
+
+        // Coba login
+        if (Auth::attempt($credentials)) {
+            $request->session()->regenerate();
+
+            // Redirect berdasarkan role
+            if (Auth::user()->role === 'admin') {
+                return redirect()->route('admin.dashboard')->with('success', 'Berhasil login sebagai Admin.');
+            } elseif (Auth::user()->role === 'tutor') {
+                return redirect()->route('tutors.home')->with('success', 'Berhasil login sebagai Tutor.');
+            } elseif (Auth::user()->role === 'student') {
+                return redirect()->route('student.home')->with('success', 'Berhasil login sebagai Student.');
+            } else {
+                return redirect()->route('dashboard')->with('success', 'Berhasil login sebagai guest.');
+            }
         }
 
         // Jika gagal
         return back()->withErrors([
-            'login' => 'Incorrect email/username or password.',
+            'email' => 'Incorrect email/username or password.',
         ]);
     }
 

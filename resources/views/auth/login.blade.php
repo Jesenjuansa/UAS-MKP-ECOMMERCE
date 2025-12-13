@@ -26,7 +26,7 @@
 
     <div>
         <label>Email / Username</label><br>
-        <input type="text" name="login" value="{{ old('login') }}" required>
+        <input type="text" name="email" value="{{ old('email') }}" required>
     </div>
 
     <br>

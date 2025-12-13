@@ -11,8 +11,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
-    })
+    $middleware->alias([
+        'block.url'      => \App\Http\Middleware\BlockDirectURL::class,
+        'blockSuspended' => \App\Http\Middleware\BlockSuspended::class,
+    ]);
+})
+
+
     ->withExceptions(function (Exceptions $exceptions) {
         //
     })->create();
