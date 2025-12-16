@@ -23,6 +23,7 @@
     <i class="bi bi-mortarboard-fill"></i> TUTOR
    </a>
   </div>
+<x-alert />
 
  <form method="POST" action="{{ route('auth.register.process') }}" enctype="multipart/form-data">
     @csrf

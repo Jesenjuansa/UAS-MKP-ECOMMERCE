@@ -12,7 +12,11 @@ return new class extends Migration {
 
             $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->foreignId('tutor_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('lesson_request_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('lesson_request_id')
+      ->nullable()
+      ->constrained('tutor_requests')
+      ->onDelete('cascade');
+
 
             $table->integer('amount');
             $table->string('proof')->nullable(); // bukti transfer student

@@ -22,7 +22,7 @@
                         @if($role == 'tutor')
                             <a href="{{ route('tutors.profile') }}">My Profile</a>
                         @else
-                            <a href="{{-- {{ route('students.profile') }} --}}">My Profile</a>
+                            <a href="{{ route('student.profile') }}">My Profile</a>
                         @endif
 
                         {{-- Logout --}}

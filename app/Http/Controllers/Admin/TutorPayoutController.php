@@ -14,17 +14,18 @@ class TutorPayoutController extends Controller
         return view('admin.payment', compact('payouts'));
     }
 
-    public function markPaid(Request $request, $id)
-    {
-        $payout = TutorPayout::findOrFail($id);
+   public function markPaid($id)
+{
+    $payout = TutorPayout::findOrFail($id);
 
-        if ($request->hasFile('admin_proof')) {
-            $payout->admin_proof = $request->file('admin_proof')->store('payouts', 'public');
-        }
+    $payout->update([
+        'status' => 'paid',
+        'paid_at' => now(),
+    ]);
 
-        $payout->status = 'paid';
-        $payout->save();
+    return back()->with('success', 'Tutor berhasil dibayar');
+}
 
-        return back()->with('success', 'Tutor payout marked as paid.');
-    }
+
+
 }

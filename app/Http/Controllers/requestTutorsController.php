@@ -2,47 +2,82 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LessonRequest;
+use App\Models\TutorRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
 
-class RequestTutorsController extends Controller
+class requestTutorsController extends Controller
 {
-    // Tampilkan semua request untuk tutor yang sedang login
+    /**
+     * ===============================
+     * LIST REQUEST UNTUK TUTOR
+     * ===============================
+     */
     public function index()
     {
-        $requests = LessonRequest::where('tutor_id', Auth::id())->get();
+        $requests = TutorRequest::where('tutor_id', Auth::id())
+            ->where(function ($query) {
+                $query
+                    ->where('status', '!=', 'REJECTED')
+                    ->orWhere(function ($q) {
+                        $q->where('status', 'REJECTED')
+                          ->where('updated_at', '>=', Carbon::now()->subHours(24));
+                    });
+            })
+            ->orderByRaw("
+                CASE status
+                    WHEN 'DEAL' THEN 1
+                    WHEN 'ONGOING' THEN 2
+                    WHEN 'DONE' THEN 3
+                    WHEN 'REJECTED' THEN 4
+                    ELSE 5
+                END
+            ")
+            ->orderBy('created_at', 'desc')
+            ->get();
 
         return view('tutors.request', compact('requests'));
     }
 
-    // Tutor menerima request (ACCEPT)
+    /**
+     * ===============================
+     * ACCEPT REQUEST
+     * ===============================
+     */
     public function accept(Request $request)
     {
-        $requestData = LessonRequest::findOrFail($request->request_id);
-        $requestData->status = 'ONGOING';
-        $requestData->save();
+        TutorRequest::where('id', $request->request_id)
+            ->where('tutor_id', Auth::id())
+            ->update(['status' => 'WAITING_PAYMENT']);
 
-        return back();
+        return back()->with('success', 'Request berhasil diterima');
     }
-
-    // Tutor menolak request
+    /**
+     * ===============================
+     * REJECT REQUEST
+     * ===============================
+     */
     public function reject(Request $request)
     {
-        $requestData = LessonRequest::findOrFail($request->request_id);
-        $requestData->status = 'REJECTED';
-        $requestData->save();
+        TutorRequest::where('id', $request->request_id)
+            ->where('tutor_id', Auth::id())
+            ->update(['status' => 'REJECTED']);
 
-        return back();
+        return back()->with('success', 'Request ditolak');
     }
 
-    // Tutor menekan MARK DONE
+    /**
+     * ===============================
+     * MARK AS DONE
+     * ===============================
+     */
     public function markDone(Request $request)
     {
-        $requestData = LessonRequest::findOrFail($request->request_id);
-        $requestData->status = 'DONE';
-        $requestData->save();
+        TutorRequest::where('id', $request->request_id)
+            ->where('tutor_id', Auth::id())
+            ->update(['status' => 'DONE']);
 
-        return back();
+        return back()->with('success', 'Lesson selesai');
     }
 }

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Models\StudentPayment;
 use App\Models\TutorPayout;
+use App\Models\TutorRequest;
+use App\Models\StudentPayment;
+use App\Http\Controllers\Controller;
 
 class PaymentController extends Controller
 {
@@ -18,31 +19,54 @@ class PaymentController extends Controller
 }
 
 
-    public function approve($id)
-    {
-        $payment = StudentPayment::findOrFail($id);
+public function approve($id)
+{
+    $payment = StudentPayment::with('lessonRequest')->findOrFail($id);
 
-        $payment->status = 'approved';
-        $payment->save();
+    if ($payment->status !== 'pending') {
+        return back()->with('error', 'Payment already processed.');
+    }
 
-        // Buat payout untuk tutor
-        TutorPayout::create([
-            'tutor_id' => $payment->tutor_id,
-            'amount' => $payment->amount * 0.8, // misal 80% untuk tutor
-            'bank_name' => $payment->tutor->bank_name,
-            'bank_account' => $payment->tutor->bank_account,
-            'account_holder' => $payment->tutor->account_holder,
+    $adminFee = $payment->amount * 0.15;
+    $tutorNet = $payment->amount - $adminFee;
+
+    // update payment
+    $payment->update([
+        'status' => 'approved'
+    ]);
+
+    // buat payout tutor
+    TutorPayout::create([
+        'tutor_id' => $payment->tutor_id,
+        'amount'   => $tutorNet,
+        'status'   => 'pending'
+    ]);
+
+    // lesson jadi ongoing
+    if ($payment->lessonRequest) {
+        $payment->lessonRequest->update([
+            'status' => 'ONGOING'
         ]);
-
-        return back()->with('success', 'Payment approved successfully!');
     }
 
-    public function reject($id)
-    {
-        $payment = StudentPayment::findOrFail($id);
-        $payment->status = 'rejected';
-        $payment->save();
+    return back()->with('success', 'Payment approved & tutor payout created.');
+}
 
-        return back()->with('error', 'Payment rejected.');
+
+
+   public function reject($id)
+{
+    $payment = StudentPayment::findOrFail($id);
+
+    if ($payment->status !== 'pending') {
+        return back()->with('error', 'Payment already processed.');
     }
+
+    $payment->update([
+        'status' => 'rejected'
+    ]);
+
+    return back()->with('success', 'Payment rejected.');
+}
+
 }

@@ -1,9 +1,10 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\StudentPayment;
 
 class TutorRequest extends Model
 {
@@ -12,7 +13,12 @@ class TutorRequest extends Model
     protected $fillable = [
         'student_id',
         'tutor_id',
-        'message',
+         'class_id',
+        'student_name',
+        'subject',
+        'schedule',
+        'duration',
+        'price',
         'status',
     ];
 
@@ -25,4 +31,17 @@ class TutorRequest extends Model
     {
         return $this->belongsTo(User::class, 'tutor_id');
     }
+
+    // tambahan (aman)
+    public function payment()
+    {
+        return $this->hasOne(StudentPayment::class, 'lesson_request_id');
+    }
+
+    // optional helper
+    public function isDone()
+    {
+        return $this->status === 'DONE';
+    }
 }
+

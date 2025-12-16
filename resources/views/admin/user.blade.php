@@ -36,7 +36,8 @@
                 <td>{{ $student->full_name }}</td>
                 <td>{{ $student->email }}</td>
                 <td>{{ $student->created_at->format('Y-m-d') }}</td>
-                <td>{{ $student->lessons_as_student_count }}</td>
+                <td>{{ $student->total_booking }}</td>
+
 
                 <td>
                     @if($student->status === 'active')
@@ -101,8 +102,8 @@
                 <td>{{ $tutor->teaching_subject ?? '-' }}</td>
 
 
-                {{-- Total Bookings --}}
-                <td>{{ $tutor->total_bookings }}</td>
+                <td>{{ $tutor->total_lessons }}</td>
+
 
                 {{-- STATUS --}}
                 <td>

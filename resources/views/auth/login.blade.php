@@ -13,6 +13,7 @@
 <body>
 
     <div class="container">
+<x-alert />
 
       <form action="{{ route('auth.login.process') }}" method="POST">
     @csrf

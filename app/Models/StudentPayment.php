@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\TutorRequest;
 
 class StudentPayment extends Model
 {
@@ -18,21 +20,21 @@ class StudentPayment extends Model
         'status',
     ];
 
-    // Student yang melakukan pembayaran
+    // student yang bayar
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id');
     }
 
-    // Tutor tujuan pembayaran
+    // tutor tujuan pembayaran
     public function tutor()
     {
         return $this->belongsTo(User::class, 'tutor_id');
     }
 
-    // Optional — terkait request les
+    // 🔥 INI YANG HILANG
     public function lessonRequest()
     {
-        return $this->belongsTo(LessonRequest::class);
+        return $this->belongsTo(TutorRequest::class, 'lesson_request_id');
     }
 }

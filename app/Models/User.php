@@ -45,16 +45,16 @@ class User extends Authenticatable
         ];
     }
 
-    public function ratingsReceived()
-    {
-        return $this->hasMany(Rating::class, 'tutor_id');
-    }
+public function ratingsGiven()
+{
+    return $this->hasMany(Rating::class, 'student_id');
+}
 
-    // Ratings student beri
-    public function ratingsGiven()
-    {
-        return $this->hasMany(Rating::class, 'student_id');
-    }
+public function ratingsReceived()
+{
+    return $this->hasMany(Rating::class, 'tutor_id');
+}
+
 
     // Lesson sebagai student
     public function lessonsAsStudent()
@@ -71,7 +71,7 @@ class User extends Authenticatable
     // Request yang dibuat student
     public function tutorRequests()
     {
-        return $this->hasMany(TutorRequest::class, 'student_id');
+        return $this->hasMany(TutorRequest::class, 'tutor_id');
     }
 
     // Request diterima tutor
@@ -106,5 +106,12 @@ public function tutorPayouts()
 {
     return $this->hasMany(TutorPayout::class, 'tutor_id');
 }
+
+// student → banyak booking
+public function studentRequests()
+{
+    return $this->hasMany(TutorRequest::class, 'student_id');
+}
+
 
 }

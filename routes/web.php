@@ -3,7 +3,6 @@
 use App\Models\Lesson;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\homeController;
-use App\Http\Controllers\RatingController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\scheduleController;
 use App\Http\Controllers\Admin\userController;
@@ -12,12 +11,14 @@ use App\Http\Controllers\TutorClassController;
 use App\Http\Controllers\Admin\paymentController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\requestTutorsController;
+use App\Http\Controllers\Student\RatingController;
 use App\Http\Controllers\Admin\dashboardController;
 use App\Http\Controllers\Admin\TutorPayoutController;
 use App\Http\Controllers\Admin\verificationController;
 use App\Http\Controllers\Admin\LessonRequestController;
 use App\Http\Controllers\Student\homeStudentController;
 use App\Http\Controllers\Student\aboutStudentController;
+use App\Http\Controllers\Student\profileStudentController;
 use App\Http\Controllers\Student\mylessonStudentController;
 use App\Http\Controllers\Student\scheduleStudentController;
 
@@ -44,7 +45,8 @@ Route::prefix('admin')->middleware('block.url')->name('admin.')->group(function 
     Route::post('/verification/{id}/reject', [VerificationController::class, 'reject'])->name('verification.reject');
 
     Route::get('/request',[LessonRequestController::class, 'index'])->name('request');
-    Route::delete('/request/{id}',[LessonRequestController::class, 'destroy'])->name('request.delete');
+    Route::delete('/lesson-requests/{id}',[LessonRequestController::class, 'destroy'])->name('lesson.requests.delete');
+
 
 // Student Payments
     Route::get('/payments', [paymentController::class, 'index'])->name('payments');
@@ -72,8 +74,8 @@ Route::prefix('tutors')->middleware('auth', 'block.url', 'blockSuspended')->name
     Route::put('/classes/{id}', [TutorClassController::class, 'update'])->name('classes.update');
     Route::delete('/classes/{id}', [TutorClassController::class, 'destroy'])->name('classes.delete');
 
-    Route::post('/accept', [RequestTutorsController::class, 'accept'])->name('accept');
-    Route::post('/reject', [RequestTutorsController::class, 'reject'])->name('reject');
+    Route::post('/accept', [RequestTutorsController::class, 'accept'])->name('request.accept');
+    Route::post('/reject', [RequestTutorsController::class, 'reject'])->name('request.reject');
     Route::post('/mark-done', [RequestTutorsController::class, 'markDone'])->name('markdone');
 
     Route::post('/start-class', [ScheduleController::class, 'startClass'])->name('startclass');
@@ -89,7 +91,13 @@ Route::prefix('student')->middleware('auth', 'block.url', 'blockSuspended')->nam
     Route::get('/about', [aboutStudentController::class, 'index'])->name('about');
     Route::get('/schedule', [scheduleStudentController::class, 'index'])->name('schedule');
     Route::get('/mylesson', [mylessonStudentController::class, 'index'])->name('mylesson');
+    Route::post('/my-lessons/payment',[mylessonStudentController::class, 'storePayment'])->name('payment.store');
+    Route::post('/student/rating/store',[RatingController::class, 'store'])->name('rating.store');
+
     Route::get('/class/{id}', [homeStudentController::class, 'showClassDetail'])->name('class.detail');
+    Route::post('/request', [homeStudentController::class, 'sendRequest'])->name('request.store');
+    Route::get('/profile',[profileStudentController::class, 'index'])->name('profile');
+
 
 });
 
@@ -106,7 +114,7 @@ Route::prefix('auth')->middleware('block.url')->name('auth.')->group(function ()
 });
 
 
-Route::post('/rating', [RatingController::class, 'store'])->name('rating.store');
+/* Route::post('/rating', [RatingController::class, 'store'])->name('rating.store'); */
 
 
 /*GUESTTT*/

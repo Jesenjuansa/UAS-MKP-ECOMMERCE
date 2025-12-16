@@ -1,53 +1,23 @@
 @extends('components.layoutUser')
 
-
 @section('content')
-<link rel="stylesheet" href="{{ asset('cssUser/navbar.css') }}">
-<link rel="stylesheet" href="{{ asset('cssUser/siswa-schedule.css') }}">
+<main style="max-width:900px;margin:auto;padding:20px">
+    <h1>My Schedule</h1>
 
- <!-- ===== MAIN CONTENT ===== -->
- <main class="schedule-page">
+    @forelse ($schedules as $item)
+        <div style="background:#fff;padding:16px;border-radius:10px;margin-bottom:14px">
 
-  <section class="title-section">
-   <h1>My Schedule</h1>
-   <p>Your upcoming Qur'an learning sessions.</p>
-  </section>
+            <p><strong>Tutor:</strong> {{ $item->tutor->full_name }}</p>
+            <p><strong>Subject:</strong> {{ $item->subject }}</p>
+            <p><strong>Schedule:</strong> {{ $item->schedule }}</p>
+            <p><strong>Duration:</strong> {{ $item->duration }}</p>
 
-  <!-- ======================= SCHEDULE LIST ======================= -->
-  <section class="schedule-list">
-
-   <!-- UPCOMING -->
-   <div class="schedule-card">
-    <div class="card-header">
-     <span class="status-badge upcoming">Upcoming</span>
-    </div>
-
-    <div class="card-body">
-     <p><i class="fa-solid fa-calendar-alt"></i> 12 Nov 2025, 09:00 AM</p>
-     <p><i class="fa-solid fa-user"></i> Tutor: Ust. Ahmad</p>
-     <p><i class="fa-solid fa-book"></i> Tajwid Basics</p>
-     <p><i class="fa-solid fa-laptop"></i> Online</p>
-     <p><i class="fa-solid fa-clock"></i> 1 hour session</p>
-    </div>
-   </div>
-
-   <!-- ONGOING -->
-   <div class="schedule-card ongoing">
-    <div class="card-header">
-     <span class="status-badge ongoing">Ongoing</span>
-    </div>
-
-    <div class="card-body">
-     <p><i class="fa-solid fa-calendar-alt"></i> 10 Nov 2025, 07:30 PM</p>
-     <p><i class="fa-solid fa-user"></i> Tutor: Aisyah Rahman</p>
-     <p><i class="fa-solid fa-book"></i> Qur'an Recitation</p>
-     <p><i class="fa-solid fa-location-dot"></i> In-person, Jakarta Selatan</p>
-     <p><i class="fa-solid fa-clock"></i> 1 hour session</p>
-    </div>
-   </div>
-
-  </section>
-
- </main>
-
+            <span style="padding:4px 10px;background:#dcfce7;border-radius:6px">
+                ONGOING
+            </span>
+        </div>
+    @empty
+        <p>No active schedule yet.</p>
+    @endforelse
+</main>
 @endsection

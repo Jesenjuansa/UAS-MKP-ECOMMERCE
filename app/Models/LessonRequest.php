@@ -9,8 +9,7 @@ class LessonRequest extends Model
     protected $fillable = [
         'student_id',
         'tutor_id',
-        'student_name',
-        'subject',
+        'tutor_class_id',
         'schedule',
         'duration',
         'price',
@@ -19,20 +18,25 @@ class LessonRequest extends Model
         'status',
     ];
 
+    /* =====================
+        RELATIONS
+    ===================== */
 
-
+    // Student (User)
     public function student()
     {
         return $this->belongsTo(User::class, 'student_id');
     }
 
+    // Tutor (User)
     public function tutor()
     {
         return $this->belongsTo(User::class, 'tutor_id');
     }
 
-    public function class()
+    // Tutor Class
+    public function tutorClass()
     {
-        return $this->belongsTo(TutorClass::class, 'class_id');
+        return $this->belongsTo(TutorClass::class);
     }
 }

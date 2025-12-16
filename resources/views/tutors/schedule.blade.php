@@ -1,84 +1,39 @@
 @extends('components.layoutUser')
 
-
 @section('content')
-<link rel="stylesheet" href="{{ asset('cssUser/navbar.css') }}">
-<link rel="stylesheet" href="{{ asset('cssUser/tutor-schedule.css') }}">
+<main style="max-width:900px;margin:auto;padding:20px">
 
- <main class="schedule-page">
+    <h1>Teaching Schedule</h1>
 
-  <section class="title-section">
-   <h1>Teaching Schedule</h1>
-   <p>Your sessions scheduled with students.</p>
-  </section>
+    @forelse ($schedules as $item)
 
-<section class="schedule-list">
+        <div style="
+            background:#fff;
+            padding:16px;
+            border-radius:10px;
+            margin-bottom:14px;
+            box-shadow:0 2px 8px rgba(0,0,0,.08)
+        ">
+            <p><strong>Student:</strong> {{ $item->student_name }}</p>
+            <p><strong>Subject:</strong> {{ $item->subject }}</p>
+            <p><strong>Schedule:</strong> {{ $item->schedule }}</p>
+            <p><strong>Duration:</strong> {{ $item->duration }}</p>
 
-    {{-- ================= UPCOMING ================= --}}
-    @foreach ($upcoming as $item)
-    <form action="{{ route('tutor.startclass') }}" method="POST" class="schedule-card">
-        @csrf
-        <input type="hidden" name="request_id" value="{{ $item->id }}">
-
-        <div class="card-header">
-            <span class="status-badge upcoming">Upcoming</span>
+            <span style="
+                display:inline-block;
+                margin-top:6px;
+                padding:4px 10px;
+                background:#dcfce7;
+                border-radius:6px;
+                font-size:13px
+            ">
+                ONGOING
+            </span>
         </div>
 
-        <div class="card-body">
-            <p><i class="fa-solid fa-calendar-alt"></i> {{ $item->schedule }}</p>
-            <p><i class="fa-solid fa-user"></i> Student: {{ $item->student_name }}</p>
-            <p><i class="fa-solid fa-book"></i> Topic: {{ $item->subject }}</p>
+    @empty
+        <p style="color:#999">No active teaching schedule.</p>
+    @endforelse
 
-            @if ($item->learning_mode == 'online')
-                <p><i class="fa-solid fa-laptop"></i> Online</p>
-            @else
-                <p><i class="fa-solid fa-location-dot"></i> {{ $item->location }}</p>
-            @endif
-
-            <p><i class="fa-solid fa-clock"></i> Duration: {{ $item->duration }}</p>
-        </div>
-
-        <div class="card-actions">
-            <button type="submit" class="start-btn">Start Class</button>
-        </div>
-    </form>
-    @endforeach
-
-
-
-    {{-- ================= ONGOING ================= --}}
-    @foreach ($ongoing as $item)
-    <form action="{{ route('tutor.completeclass') }}" method="POST" class="schedule-card ongoing">
-        @csrf
-        <input type="hidden" name="request_id" value="{{ $item->id }}">
-
-        <div class="card-header">
-            <span class="status-badge ongoing">Ongoing</span>
-        </div>
-
-        <div class="card-body">
-            <p><i class="fa-solid fa-calendar-alt"></i> {{ $item->schedule }}</p>
-            <p><i class="fa-solid fa-user"></i> Student: {{ $item->student_name }}</p>
-            <p><i class="fa-solid fa-book"></i> Topic: {{ $item->subject }}</p>
-
-            @if ($item->learning_mode == 'online')
-                <p><i class="fa-solid fa-laptop"></i> Online</p>
-            @else
-                <p><i class="fa-solid fa-location-dot"></i> {{ $item->location }}</p>
-            @endif
-
-            <p><i class="fa-solid fa-clock"></i> Duration: {{ $item->duration }}</p>
-        </div>
-
-        <div class="card-actions">
-            <button type="submit" class="done-btn">Mark as Done</button>
-        </div>
-    </form>
-    @endforeach
-
-</section>
-
-
- </main>
-
+</main>
 @endsection

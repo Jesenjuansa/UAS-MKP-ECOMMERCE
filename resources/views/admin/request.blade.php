@@ -7,7 +7,7 @@
 <main class="lr-container">
 
     <h1>Lesson Request Management</h1>
-    <p class="sub">Menampilkan seluruh permintaan les mengaji dari siswa.</p>
+    <p class="sub">Menampilkan seluruh permintaan les dari siswa.</p>
 
     <div class="card-table">
         <table class="lr-table">
@@ -23,62 +23,69 @@
             </thead>
 
             <tbody>
-                @foreach ($requests as $req)
+                @forelse ($requests as $req)
                 <tr>
-                    <td>{{ $req->student->full_name }}</td>
-                    <td>{{ $req->tutor->full_name }}</td>
-                    <td>{{ $req->subject }}</td>
-                    <td>{{ $req->schedule->format('m/d/Y — H:i') }}</td>
+                    {{-- STUDENT --}}
+                    <td>{{ $req->student_name }}</td>
 
+                    {{-- TUTOR --}}
+                    <td>{{ $req->tutor->full_name ?? $req->tutor->email }}</td>
+
+                    {{-- SUBJECT --}}
+                    <td>{{ $req->subject }}</td>
+
+                    {{-- SCHEDULE (STRING, BUKAN DATE) --}}
+                    <td>{{ $req->schedule }}</td>
+
+                    {{-- STATUS --}}
                     <td>
-                        <span class="status {{ $req->status }}">
-                            {{ strtoupper($req->status) }}
+                        <span class="status {{ strtolower($req->status) }}">
+                            {{ $req->status }}
                         </span>
                     </td>
 
+                    {{-- ACTION --}}
                     <td class="actions">
-                        <!-- View -->
-                        <label for="view-{{ $req->id }}" class="btn-view">View</label>
+                        <label for="view-{{ $req->id }}" class="btn-view">
+                            View
+                        </label>
 
-                        <!-- Delete -->
                         <label for="delete-{{ $req->id }}" class="btn-delete">
                             <i class="fa-solid fa-trash"></i>
                         </label>
                     </td>
                 </tr>
 
-                <!-- ================================
-                    VIEW DETAILS MODAL
-                    ================================ -->
+                {{-- ================= VIEW MODAL ================= --}}
                 <input type="checkbox" id="view-{{ $req->id }}" class="modal-toggle">
                 <div class="modal">
                     <label for="view-{{ $req->id }}" class="modal-overlay"></label>
 
                     <div class="modal-box request-modal">
+                        <h2 class="modal-title">Request Detail</h2>
 
-                        <h2 class="modal-title">{{ $req->student->full_name }}</h2>
-
-                        <p><b>Student:</b> {{ $req->student->full_name }}</p>
-                        <p><b>Tutor:</b> {{ $req->tutor->full_name }}</p>
+                        <p><b>Student:</b> {{ $req->student_name }}</p>
+                        <p><b>Tutor:</b> {{ $req->tutor->full_name ?? $req->tutor->email }}</p>
                         <p><b>Subject:</b> {{ $req->subject }}</p>
 
                         <label>Schedule:</label>
-                        <input type="text" value="{{ $req->schedule->format('m/d/Y — H:i') }}" />
+                        <input type="text" value="{{ $req->schedule }}" readonly>
 
                         <label>Status:</label>
-                        <select disabled>
-                            <option>{{ strtoupper($req->status) }}</option>
-                        </select>
+                        <input type="text" value="{{ $req->status }}" readonly>
 
-                        <!-- Tombol Close -->
-                        <label for="view-{{ $req->id }}" class="close-btn">Close</label>
+                        <label>Price:</label>
+                        <input type="text"
+                               value="Rp {{ number_format($req->price,0,',','.') }}"
+                               readonly>
+
+                        <label for="view-{{ $req->id }}" class="close-btn">
+                            Close
+                        </label>
                     </div>
                 </div>
 
-
-                <!-- ================================
-                    DELETE CONFIRMATION MODAL
-                    ================================ -->
+                {{-- ================= DELETE MODAL ================= --}}
                 <input type="checkbox" id="delete-{{ $req->id }}" class="modal-toggle">
                 <div class="modal">
                     <label for="delete-{{ $req->id }}" class="modal-overlay"></label>
@@ -88,12 +95,16 @@
                         <p>This request will be permanently removed.</p>
 
                         <div class="delete-actions">
+                            <label for="delete-{{ $req->id }}" class="btn-cancel">
+                                Cancel
+                            </label>
 
-                            <label for="delete-{{ $req->id }}" class="btn-cancel">Cancel</label>
-
-                            <form action="{{ route('admin.request.delete', $req->id) }}" method="POST" style="display:inline">
+                            <form action="{{ route('admin.lesson.requests.delete', $req->id) }}"
+                                  method="POST"
+                                  style="display:inline">
                                 @csrf
                                 @method('DELETE')
+
                                 <button class="btn-confirm" type="submit">
                                     Delete
                                 </button>
@@ -102,11 +113,16 @@
                     </div>
                 </div>
 
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="6" style="text-align:center; padding:20px;">
+                        No lesson requests found.
+                    </td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
 
 </main>
-
 @endsection

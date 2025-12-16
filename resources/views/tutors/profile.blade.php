@@ -208,10 +208,13 @@
                 <span class="info-value">{{ $totalStudents ?? 0 }}</span>
             </div>
 
-            <div class="info-item">
-                <strong>Rating:</strong>
-                <span class="info-value">⭐ {{ number_format($rating ?? 0, 1) }}</span>
-            </div>
+            <p>
+        <strong>Rating:</strong>
+        ⭐ {{ number_format($avgRating, 1) }}
+        <span style="color:#6b7280">
+            ({{ $ratingCount }} students)
+        </span>
+    </p>
 
         </aside>
 

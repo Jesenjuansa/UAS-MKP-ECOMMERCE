@@ -36,13 +36,13 @@
 
     {{-- DEAL CARD --}}
     @if ($req->status === 'DEAL')
-        <form method="POST" action="{{ route('tutor.accept') }}">
+        <form method="POST" action="{{ route('tutors.request.accept') }}">
             @csrf
             <input type="hidden" name="request_id" value="{{ $req->id }}">
             <button class="accept-btn">ACCEPT</button>
         </form>
 
-        <form method="POST" action="{{ route('tutor.reject') }}">
+        <form method="POST" action="{{ route('tutors.request.reject') }}">
             @csrf
             <input type="hidden" name="request_id" value="{{ $req->id }}">
             <button class="reject-btn">REJECT</button>
@@ -52,7 +52,7 @@
 
     {{-- ONGOING CARD --}}
     @if ($req->status === 'ONGOING')
-        <form method="POST" action="{{ route('tutor.markdone') }}">
+        <form method="POST" action="{{ route('tutors.markdone') }}">
             @csrf
             <input type="hidden" name="request_id" value="{{ $req->id }}">
             <button class="mark-done-btn active">MARK AS DONE</button>

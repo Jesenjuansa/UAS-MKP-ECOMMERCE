@@ -1,205 +1,349 @@
  @extends('components.layoutUser')
 
 
-@section('content')
-<link rel="stylesheet" href="{{ asset('cssUser/navbar.css') }}">
-<link rel="stylesheet" href="{{ asset('cssUser/tutor-detail.css') }}">
-<link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css') }}">
+ @section('content')
+ <link rel="stylesheet" href="{{ asset('cssUser/navbar.css') }}">
+ <link rel="stylesheet" href="{{ asset('cssUser/tutor-detail.css') }}">
+ <link rel="stylesheet" href="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css') }}">
 
-  <!-- main container -->
-  <div class="container">
+ <style>
+     .container {
+         max-width: 1100px;
+         margin: 40px auto;
+         display: grid;
+         grid-template-columns: 1.3fr .7fr;
+         gap: 30px
+     }
 
-    <!-- LEFT: tutor detail -->
-    <div class="left">
-      <div class="panel">
-        <h1>About the Tutor</h1>
-        <p class="lead">I’ve been teaching Qur’an recitation and tajweed for 6 years, helping students improve reading,
-          pronunciation, and memorization. I also teach general subjects (math, Mandarin) for basic to intermediate
-          levels.</p>
+     .panel {
+         background: #fff;
+         padding: 24px;
+         border-radius: 14px;
+         box-shadow: 0 3px 12px rgba(0, 0, 0, .08)
+     }
 
-        <div class="grid-2" style="margin-bottom:14px">
-          <div class="detail-card">
-            <h4>🗣️ Languages</h4>
-            <p>Arabic, English, Indonesian</p>
-          </div>
-          <div class="detail-card">
-            <h4>💼 Experience</h4>
-            <p>6 years</p>
-          </div>
-        </div>
+     .profile img {
+         width: 140px;
+         height: 140px;
+         object-fit: cover;
+         border-radius: 12px;
+         margin-bottom: 10px
+     }
 
-        <div class="panel" style="padding:16px">
-          <h3 style="color:var(--accent);margin-bottom:8px">Packages & Pricing</h3>
+     .pkg {
+         border: 1px solid #eee;
+         padding: 14px;
+         border-radius: 10px;
+         margin-bottom: 10px
+     }
 
-          <!-- Static examples of packages (these represent tutor-myclasses) -->
-          <div class="pricing-list">
-            <div class="pkg">
-              <strong>Iqra' Level 1 — Starter</strong>
-              <small>45 minutes • Rp 150.000 per session</small>
-              <small class="days">Hari: Senin & Rabu</small>
-            </div>
+     .small {
+         font-size: 14px;
+         color: #666
+     }
 
-            <div class="pkg">
-              <strong>Mathematics — Basic Algebra</strong>
-              <small>60 minutes • Rp 200.000 per session</small>
-              <small class="days">Hari: Senin & Rabu</small>
-            </div>
-          </div>
+     .badge {
+         padding: 6px 12px;
+         border-radius: 8px;
+         font-size: 13px;
+         background: #111;
+         color: #fff
+     }
 
-          <div class="muted">Note: final total will be calculated by the system when you submit the request. You can
-            select multiple packages on the right panel.</div>
-        </div>
+     .alert-error {
+         background: #fee2e2;
+         color: #991b1b;
+         padding: 12px 16px;
+         border-radius: 8px;
+         margin-bottom: 16px;
+         font-weight: 500;
+     }
 
-        <div class="subjects">
-          <h3>Teaching Focus</h3>
-          <div class="badges">
-            <span>Qur’an Recitation</span>
-            <span>Mathematics</span>
-            <span>Mandarin</span>
-          </div>
-        </div>
-        <!-- ================= STUDENT REVIEWS ================= -->
-      <div id="reviews" class="reviews-section">
-        <h2 class="reviews-title">Student Reviews</h2>
+     .alert-success {
+         background: #ecfdf5;
+         color: #065f46;
+         padding: 12px 16px;
+         border-radius: 8px;
+         margin-bottom: 16px;
+         font-weight: 500;
+     }
 
-        <div class="review-card">
-          <div class="review-stars">⭐⭐⭐⭐⭐</div>
-          <p class="review-text">
-            “Ustadzah Aisha sangat sabar dan penjelasannya mudah dipahami.
-            Bacaan saya jauh lebih baik dalam 2 minggu.”
-          </p>
-          <div class="review-author">— Fatimah, 14 tahun</div>
-        </div>
+     .tutor-profile {
+    text-align: center;
+    padding: 24px 20px;
+}
 
-        <div class="review-card">
-          <div class="review-stars">⭐⭐⭐⭐</div>
-          <p class="review-text">
-            “Kelasnya rapi, struktur belajarnya jelas. Saya suka modul Tajwidnya.”
-          </p>
-          <div class="review-author">— Ahmad, 22 tahun</div>
-        </div>
-      </div>
+.tutor-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 14px;
+    border: 3px solid #f1f5f9;
+}
 
-      </div>
+.tutor-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.tutor-subject {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 10px;
+}
+
+.class-badge {
+    display: inline-block;
+    background: #111827;
+    color: #fff;
+    font-size: 12px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+}
+
+.rating-box {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.star {
+    font-size: 16px;
+    color: #d1d5db;
+}
+
+.star.filled {
+    color: #facc15;
+}
+
+.rating-count {
+    margin-left: 6px;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+/* ===============================
+   STUDENT REVIEWS
+================================ */
+.reviews-section {
+    margin-top: 40px;
+}
+
+.reviews-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 18px;
+}
+
+/* ===============================
+   REVIEW CARD
+================================ */
+.review-card {
+    background: #ffffff;
+    padding: 16px 18px;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+}
+
+/* ===============================
+   STARS
+================================ */
+.review-stars {
+    color: #facc15;
+    font-size: 16px;
+    letter-spacing: 1px;
+}
+
+/* ===============================
+   REVIEW TEXT
+================================ */
+.review-text {
+    margin: 10px 0 12px;
+    font-size: 14px;
+    line-height: 1.6;
+    color: #374151;
+    font-style: italic;
+}
+
+/* ===============================
+   FOOTER
+================================ */
+.review-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.review-user {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1f2937;
+}
+
+/* ===============================
+   EMPTY STATE
+================================ */
+.no-review {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+
+ </style>
+
+
+ <div class="container">
+
+     {{-- LEFT --}}
+     <div class="panel">
+         @if (session('success'))
+         <div class="alert-success" id="successAlert">
+             {{ session('success') }}
+         </div>
+         <script>
+             setTimeout(() => {
+                 document.getElementById('successAlert') ? .remove();
+             }, 3000);
+
+         </script>
+         @endif
+         @if (session('error'))
+         <div class="alert-error">
+             {{ session('error') }}
+         </div>
+         @endif
+
+         <h2>About the Tutor</h2>
+
+         <p class="small">
+             This tutor provides {{ $tutor->class_type ?? 'flexible' }} classes.
+             Detailed biography has not been added yet.
+         </p>
+
+         <h3 style="margin-top:20px">Packages & Pricing</h3>
+
+         <div class="pkg">
+             <strong>{{ $class->title }}</strong>
+             <div class="small">
+                 {{ $class->duration }} •
+                 Rp {{ number_format($class->price,0,',','.') }}
+             </div>
+             <div class="small">Hari: {{ $class->day }}</div>
+         </div>
+
+         <form method="POST" action="{{ route('student.request.store') }}">
+             @csrf
+             <input type="hidden" name="class_id" value="{{ $class->id }}">
+
+             <button type="submit" class="badge"
+                 style="display:block;text-align:center;margin-top:20px;border:none;cursor:pointer;">
+                 Request Class
+             </button>
+         </form>
+
+
+     </div>
+
+     {{-- RIGHT --}}
+<aside class="panel profile tutor-profile">
+
+    <img
+        src="{{ $class->tutor->pas_foto
+            ? asset('uploads/tutors/'.$class->tutor->pas_foto)
+            : asset('images/default-user.png') }}"
+        alt="Tutor Photo"
+        class="tutor-photo"
+    >
+
+    <h2 class="tutor-name">
+        {{ $class->tutor->name }}
+    </h2>
+
+    {{-- TEACHING SUBJECT (GANTI TOTAL STUDENT) --}}
+    <p class="tutor-subject">
+        {{ $class->tutor->teaching_subject ?? 'Teaching Subject Not Set' }}
+    </p>
+
+    {{-- CLASS TYPE --}}
+    @if($class->tutor->class_type)
+        <span class="badge class-badge">
+            {{ ucfirst($class->tutor->class_type) }} Class
+        </span>
+    @endif
+
+    {{-- RATING --}}
+    @php
+        $fullStars = floor($averageRating ?? 0);
+    @endphp
+
+    <div class="rating-box">
+        @for ($i = 1; $i <= 5; $i++)
+            @if ($i <= $fullStars)
+                <span class="star filled">★</span>
+            @else
+                <span class="star">★</span>
+            @endif
+        @endfor
+
+        <span class="rating-count">
+            ({{ $totalRaters ?? 0 }})
+        </span>
     </div>
 
-    <!-- RIGHT: profile + packages (select) + request form -->
-    <aside class="right">
+</aside>
 
-      <!-- profile -->
-      <div class="profile-card">
-        <img src="/client/images/w1.jpg" alt="Tutor photo">
-        <h2>Aisha Amira</h2>
-        <p class="title">Qur’an & Tajweed Tutor</p>
-        <div class="rating" onclick="document.getElementById('reviews').scrollIntoView({ behavior: 'smooth' })"
-          style="cursor:pointer">
-          ⭐ 4.9 <span style="color:var(--muted);font-size:13px"> (2 students)</span>
+
+ </div>
+
+ {{-- ================= STUDENT REVIEWS ================= --}}
+<div class="reviews-section">
+    <h3 class="reviews-title">Student Reviews</h3>
+
+    @forelse ($reviews as $review)
+        <div class="review-card">
+
+            {{-- ⭐ STARS --}}
+            <div class="review-stars">
+                @for ($i = 1; $i <= 5; $i++)
+                    @if ($i <= $review->rating)
+                        ★
+                    @else
+                        ☆
+                    @endif
+                @endfor
+            </div>
+
+            {{-- REVIEW TEXT --}}
+            <p class="review-text">
+                “{{ $review->review }}”
+            </p>
+
+            {{-- STUDENT NAME --}}
+            <div class="review-footer">
+                <span class="review-user">
+                    {{ $review->student->full_name
+                        ?? $review->student->name
+                        ?? $review->student->email }}
+                </span>
+            </div>
+
         </div>
-
-      </div>
-
-      <!-- packages selector (part of form below) -->
-      <div class="packages panel">
-        <h3>Select Packages</h3>
-
-        <!-- NOTE: name attributes are arrays so backend receives multiple packages -->
-        <form method="POST" action="/request/submit" enctype="multipart/form-data" class="request-form">
-
-          <!-- each package row: checkbox + hidden price + quantity -->
-          <div class="pkg-row">
-            <div class="pkg-left">
-              <b>Iqra' Level 1 — Starter</b>
-              <small>45 minutes • Rp 150.000 / session</small>
-              <small class="days">Hari: Senin & Rabu</small>
-            </div>
-            <div class="pkg-actions">
-              <input type="checkbox" id="pkg1" name="packages[]" value="iqra1">
-              <label for="pkg1" style="font-size:13px;color:var(--muted);display:block;margin-top:6px">Select</label>
-              <!-- send price & title so server can compute -->
-              <input type="hidden" name="pkg_price_iqra1" value="150000">
-              <input type="number" name="pkg_qty_iqra1" min="1" value="1" aria-label="quantity" />
-            </div>
-          </div>
-
-          <div class="pkg-row">
-            <div class="pkg-left">
-              <b>Mathematics — Basic Algebra</b>
-              <small>60 minutes • Rp 200.000 / session</small>
-              <small class="days">Hari: Senin & Rabu</small>
-            </div>
-            <div class="pkg-actions">
-              <input type="checkbox" id="pkg3" name="packages[]" value="math1">
-              <label for="pkg3" style="font-size:13px;color:var(--muted);display:block;margin-top:6px">Select</label>
-              <input type="hidden" name="pkg_price_math1" value="200000">
-              <input type="number" name="pkg_qty_math1" min="1" value="1" aria-label="quantity" />
-            </div>
-          </div>
-
-          <!-- summary (visual only) -->
-          <div class="summary" aria-hidden="true">
-            <h4>Order Summary</h4>
-            <div class="line">
-              <div>Selected packages</div>
-              <div class="muted">—</div>
-            </div>
-            <div class="line">
-              <div>Subtotal</div>
-              <div class="muted">—</div>
-            </div>
-            <div class="total">Total: <span class="muted">Calculated at checkout</span></div>
-          </div>
-
-          <!-- bank info (visible for student for payment destination) -->
-          <div class="bank-card">
-            <h4>Payment Information</h4>
-            <div>Bank: <span class="bank-info">BCA</span></div>
-            <div>Account: <span class="bank-info">1234567890</span></div>
-            <div>Account Name: <span class="bank-info">PrivEdu Indonesia</span></div>
-            <div class="muted">Upload payment proof after transfer. Admin will verify.
-            </div>
-          </div>
-
-          <!-- request form fields -->
-          <h3 style="margin-top:6px">Your Details & Request</h3>
-
-          <!-- hidden tutor info -->
-          <input type="hidden" name="tutor_id" value="1">
-          <input type="hidden" name="tutor_name" value="Aisha Amira">
-
-          <label>Full Name</label>
-          <input type="text" name="full_name" placeholder="Your full name" required>
-
-          <div class="small-row">
-            <div class="half">
-              <label>Learning Mode</label>
-              <select name="learning_mode" required>
-                <option value="">Select mode</option>
-                <option value="online">Online</option>
-                <option value="in-person">In-person (Nearby)</option>
-              </select>
-            </div>
-            <div class="half">
-              <label>City / Area</label>
-              <input type="text" name="city" placeholder="e.g., Kuta Alam">
-            </div>
-          </div>
-
-          <label>Upload Proof of Payment (optional)</label>
-          <input type="file" name="payment_proof" accept="image/*">
+    @empty
+        <p class="no-review">No reviews yet.</p>
+    @endforelse
+</div>
 
 
-          <div style="height:8px"></div>
-
-          <!-- submit -->
-          <button type="submit" class="send-btn">Send Request & Upload</button>
-
-          <div style="height:10px"></div>
-          <div class="muted" style="font-size:12px">After submitting, request will appear in "My Lessons"</div>
-
-        </form>
-      </div>
-
-    </aside>
-  </div>
-
-@endsection
+ @endsection
