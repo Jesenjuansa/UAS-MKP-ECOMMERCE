@@ -68,12 +68,12 @@
                 <option value="">Select</option>
                 <option>Iqra & Basic Qur’an Reading</option>
                 <option>Programming</option>
-                <option>Mathematics</option>
                 <option>English</option>
                 <option>Mandarin</option>
-                <option>Science</option>
-                <option>Baking class</option>
+                <option>Japanese</option>
                 <option>Drawing</option>
+                <option>Cooking</option>
+                <option>Music</option>
             </select>
         </div>
 

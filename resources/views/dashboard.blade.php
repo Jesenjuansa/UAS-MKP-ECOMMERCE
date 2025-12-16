@@ -105,36 +105,71 @@
   </section>
 
 <section class="product-section">
-    <h2 class="product-title">Our Quran Learning Programs</h2>
+    <h2 class="product-title">Our Learning Programs</h2>
 
     <div class="product-grid">
         <!-- Product 3 -->
         <div class="product-card">
-            <img src="../images/teach.jpg" alt="Memorization Program" />
-            <h3>Memorization Program</h3>
-            <p>Structured hifz guidance with certified tutors.</p>
+            <img src="../images/je.jpg" alt="Programming" />
+            <h3>Programming</h3>
+            <p>Fundamental programming concepts for beginners.</p>
              <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
         </div>
 
         <!-- Product 4 -->
         <div class="product-card">
-            <img src="../images/teach.jpg" alt="Arabic Basics" />
-            <h3>Arabic Basics</h3>
+            <img src="../images/je1.jpg" alt="Arabic Basics" />
+            <h3>Iqra & Basic Qur’an Reading</h3>
             <p>Learn basic Arabic to understand Qur’anic vocabulary.</p>
             <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
         </div>
         <!-- Product 4 -->
         <div class="product-card">
-            <img src="../images/teach.jpg" alt="Arabic Basics" />
-            <h3>Arabic Basics</h3>
-            <p>Learn basic Arabic to understand Qur’anic vocabulary.</p>
+            <img src="../images/je2.jpg" alt="Arabic Basics" />
+            <h3>English</h3>
+            <p>Learn English fundamentals for beginners.</p>
             <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
         </div>
         <!-- Product 4 -->
         <div class="product-card">
-            <img src="../images/teach.jpg" alt="Arabic Basics" />
-            <h3>Arabic Basics</h3>
-            <p>Learn basic Arabic to understand Qur’anic vocabulary.</p>
+            <img src="../images/je3.jpg" alt="Arabic Basics" />
+            <h3>Mandarin</h3>
+            <p>Learn Mandarin fundamentals for beginners.</p>
+            <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
+        </div>
+        <!-- Product 4 -->
+        <div class="product-card">
+            <img src="../images/je4.jpg" alt="Arabic Basics" />
+            <h3>Japanese</h3>
+            <p>Learn Japanese fundamentals for beginners.</p>
+            <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
+        </div>
+        <!-- Product 4 -->
+        <div class="product-card">
+            <img src="../images/je5.jpg" alt="Arabic Basics" />
+            <h3>Drawing</h3>
+            <p>Learn drawing fundamentals for beginners.</p>
+            <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
+        </div>
+    <!-- Product 4 -->
+        <div class="product-card">
+            <img src="../images/je6.jpg" alt="Arabic Basics" />
+            <h3>Cooking</h3>
+            <p>Learn cooking fundamentals for beginners.</p>
+            <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
+        </div>
+            <!-- Product 4 -->
+        <div class="product-card">
+            <img src="../images/je7.jpg" alt="Arabic Basics" />
+            <h3>Music</h3>
+            <p>Learn music fundamentals for beginners.</p>
+            <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
+        </div>
+         <!-- Product 4 -->
+        <div class="product-card">
+            <img src="../images/je8.jpg" alt="Arabic Basics" />
+            <h3>Science</h3>
+            <p>Learn science fundamentals for beginners.</p>
             <a class="product-btn" href="{{ route('auth.login') }}" onclick="alert('⚠️ Silahkan login terlebih dahulu!'); return false;">Learn Now</a>
         </div>
     </div>

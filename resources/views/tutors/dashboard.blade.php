@@ -109,7 +109,7 @@
   </section>
 
 <section class="product-section">
-    <h2 class="product-title">Our Quran Learning Programs</h2>
+    <h2 class="product-title">Our Learning Programs</h2>
 
     <div class="product-grid">
 
