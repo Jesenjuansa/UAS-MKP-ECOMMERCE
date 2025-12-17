@@ -6,10 +6,10 @@ use App\Http\Controllers\homeController;
 use App\Http\Controllers\profileController;
 use App\Http\Controllers\scheduleController;
 use App\Http\Controllers\Admin\userController;
-use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\loginController;
 use App\Http\Controllers\TutorClassController;
 use App\Http\Controllers\Admin\paymentController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\Auth\registerController;
 use App\Http\Controllers\requestTutorsController;
 use App\Http\Controllers\Student\RatingController;
 use App\Http\Controllers\Admin\dashboardController;
@@ -104,13 +104,13 @@ Route::prefix('student')->middleware('auth', 'block.url', 'blockSuspended')->nam
 /*AUTHHHHH*/
 // LOGIN
 Route::prefix('auth')->name('auth.')->group(function () {
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login'])->name('login.process');
-    Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [loginController::class, 'login'])->name('login.process');
+    Route::post('/logout', [loginController::class, 'logout'])->name('logout');
 // REGISTER (2 halaman, 1 proses)
-    Route::get('/register', [RegisterController::class, 'showStudentForm'])->name('register');
-    Route::get('/register/tutor', [RegisterController::class, 'showTutorForm'])->name('register.tutor');
-    Route::post('/register', [RegisterController::class, 'register'])->name('register.process');
+    Route::get('/register', [registerController::class, 'showStudentForm'])->name('register');
+    Route::get('/register/tutor', [registerController::class, 'showTutorForm'])->name('register.tutor');
+    Route::post('/register', [registerController::class, 'register'])->name('register.process');
 });
 
 
