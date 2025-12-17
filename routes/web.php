@@ -103,7 +103,7 @@ Route::prefix('student')->middleware('auth', 'block.url', 'blockSuspended')->nam
 
 /*AUTHHHHH*/
 // LOGIN
-Route::prefix('auth')->middleware('block.url')->name('auth.')->group(function () {
+Route::prefix('auth')->name('auth.')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login'])->name('login.process');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
