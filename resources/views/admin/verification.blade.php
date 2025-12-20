@@ -3,7 +3,7 @@
 
 @section('content')
 <link rel="stylesheet" href="{{ asset('cssAdmin/sidebar.css') }}">
-<link rel="stylesheet" href="{{ asset('cssAdmin/tutorVerification.css') }}">
+<link rel="stylesheet" href="{{ asset('cssAdmin/tutorverification.css') }}">
 
 <h1>Tutor Verification</h1>
 <p class="sub">Verify new tutors before they can accept student requests</p>
